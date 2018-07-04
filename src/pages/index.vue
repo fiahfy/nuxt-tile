@@ -5,31 +5,22 @@
     grid-list-md
     text-xs-center
   >
-    <v-layout
+    <calendar
       v-for="m in months"
       :key="m.getTime()"
-      row
-      wrap
-    >
-      <v-flex
-        v-for="d in days(m)"
-        :key="d.getTime()"
-      >
-        <v-card
-          :color="color(d)"
-          dark
-        >
-          <v-card-text
-            class="px-0"
-          >{{ d.getDate() }}</v-card-text>
-        </v-card>
-      </v-flex>
-    </v-layout>
+      :year="m.getFullYear()"
+      :month="m.getMonth() + 1"
+    />
   </v-container>
 </template>
 
 <script>
+import Calendar from '~/components/Calendar'
+
 export default {
+  components: {
+    Calendar
+  },
   data () {
     const d = new Date()
     return {
@@ -38,16 +29,6 @@ export default {
         new Date(d.getFullYear(), d.getMonth())
       ]
     }
-  },
-  computed: {
-    // dates () {
-    //   return this.months.reduce((carry, m) => {
-    //     const days = (new Date(m.getFullYear(), m.getMonth() + 1, 0)).getDate()
-    //     return carry.concat([...Array(days).keys()].map((i) => {
-    //       return new Date(m.getFullYear(), m.getMonth(), i + 1)
-    //     }))
-    //   }, [])
-    // }
   },
   async mounted () {
     while (true) {
@@ -77,12 +58,6 @@ export default {
       if (top < window.innerHeight * this.threshold) {
         this.prepend()
       }
-    },
-    days (m) {
-      const days = (new Date(m.getFullYear(), m.getMonth() + 1, 0)).getDate()
-      return [...Array(days).keys()].map((i) => {
-        return new Date(m.getFullYear(), m.getMonth(), i + 1)
-      })
     },
     color (d) {
       return [
@@ -115,10 +90,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-.flex {
-  flex-basis: calc(100% / 7);
-  max-width: calc(100% / 7);
-}
-</style>
