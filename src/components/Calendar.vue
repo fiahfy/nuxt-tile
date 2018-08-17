@@ -54,7 +54,6 @@ export default {
 }
 </script>
 
-
 <style scoped>
 .flex {
   flex-basis: calc(100% / 7);

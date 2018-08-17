@@ -72,7 +72,7 @@ export default {
         'grey darken-2',
         'grey darken-3',
         'grey darken-4',
-        'black',
+        'black'
       ][d.getMonth()]
     },
     append () {
