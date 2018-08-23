@@ -1,12 +1,14 @@
 <template>
   <v-container
     v-scroll="onScroll"
+    class="pa-1"
     fluid
-    grid-list-md
+    grid-list-xs
     text-xs-center
   >
     <calendar
       v-for="m in months"
+      ref="calendar"
       :key="m.getTime()"
       :year="m.getFullYear()"
       :month="m.getMonth() + 1"
@@ -23,11 +25,16 @@ export default {
   },
   data () {
     const d = new Date()
+    const m = new Date(d.getFullYear(), d.getMonth())
     return {
       threshold: 1,
-      months: [
-        new Date(d.getFullYear(), d.getMonth())
-      ]
+      month: m,
+      months: [m]
+    }
+  },
+  watch: {
+    month (value) {
+      // console.log(value)
     }
   },
   async mounted () {
@@ -43,20 +50,34 @@ export default {
       if (top > window.innerHeight * this.threshold) {
         break
       }
-      this.prepend()
+      await this.prepend()
       await this.$nextTick()
     }
   },
   methods: {
     onScroll (e) {
       const top = window.pageYOffset || document.documentElement.scrollTop
-      console.log(top)
-      console.log(window.innerHeight, this.$el.offsetHeight)
+      // console.log(top)
+      // console.log(window.innerHeight, this.$el.offsetHeight)
       if (this.$el.offsetHeight - top < window.innerHeight * (1 + this.threshold)) {
         this.append()
       }
       if (top < window.innerHeight * this.threshold) {
         this.prepend()
+      }
+      // console.log(top)
+      // console.log(this.$refs.calendar.map((c) => [c.year, c.month, c.$el.offsetTop, c.$el.offsetTop + c.$el.offsetHeight]))
+      const c = this.$refs.calendar.find((c) => c.$el.offsetTop - 55 < top && top < c.$el.offsetTop - 55 + c.$el.offsetHeight)
+      if (!c) {
+        return
+      }
+      this.month = new Date(c.year, c.month - 1)
+      // console.log(c.year, c.month)
+      // console.log(this.month)
+    },
+    getClass (month) {
+      return {
+        current: this.month.getFullYear() === month.getFullYear() && this.month.getMonth() === month.getMonth()
       }
     },
     color (d) {
@@ -90,3 +111,16 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.container.grid-list-xs .layout:only-child,
+.container.grid-list-xs .layout:not(:only-child) {
+  margin: 0 -1px;
+}
+.calendar {
+  opacity: 1;
+}
+.calendar.current {
+  opacity: 1;
+}
+</style>

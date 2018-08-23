@@ -36,6 +36,10 @@ module.exports = {
     }
   },
   /*
+  ** Mode
+  */
+  mode: 'spa',
+  /*
   ** Source directory
   */
   srcDir: 'src',
@@ -44,5 +48,11 @@ module.exports = {
   */
   modules: [
     '@nuxtjs/vuetify'
+  ],
+  /*
+  ** Plugins
+  */
+  plugins: [
+    { src: '~/plugins/vuex-persistedstate' }
   ]
 }
