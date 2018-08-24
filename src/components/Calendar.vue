@@ -5,7 +5,7 @@
     wrap
   >
     <v-flex xs12>
-      <h2 class="headline mt-3 mb-1">{{ headline }}</h2>
+      <h2 class="subheading mt-3 mb-1">{{ headline }}</h2>
     </v-flex>
     <v-flex
       v-for="i in offsetBegin"

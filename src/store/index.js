@@ -10,7 +10,7 @@ export const getters = {
 
 export const actions = {
   toggleChecked ({ commit, state }, { date }) {
-    const timestamp = date.getTime()
+    const timestamp = String(date.getTime())
     if (state.dates[timestamp]) {
       const dates = Object.keys(state.dates)
         .filter((key) => key !== timestamp)

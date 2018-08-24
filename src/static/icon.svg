@@ -1,0 +1,12 @@
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  x="0"
+  y="0"
+  width="60"
+  height="80"
+>
+  <polygon
+    points="0 0, 60 0, 60 40, 30 40, 30 80, 0 80"
+    fill="#9ccc65"
+  />
+</svg>
