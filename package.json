@@ -1,5 +1,5 @@
 {
-  "name": "nuxt-tile",
+  "name": "paddy",
   "description": "Nuxt.js project",
   "version": "1.0.0",
   "author": {
@@ -27,7 +27,7 @@
   "private": true,
   "repository": {
     "type": "git",
-    "url": "https://github.com/fiahfy/nuxt-tile"
+    "url": "https://github.com/fiahfy/paddy"
   },
   "scripts": {
     "build": "nuxt build",

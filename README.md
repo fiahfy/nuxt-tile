@@ -1,6 +1,6 @@
-# nuxt-tile
+# Paddy
 
-> Nuxt.js project
+> When did you do that?
 
 ## Build Setup
 
