@@ -3,7 +3,7 @@
     <v-toolbar app>
       <v-spacer />
       <img
-        src="/icon.svg"
+        src="~/assets/icon.svg"
         class="mb-2"
       >
       <span class="headline">addy</span>

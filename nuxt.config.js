@@ -53,5 +53,11 @@ module.exports = {
   */
   plugins: [
     { src: '~/plugins/vuex-persistedstate' }
-  ]
+  ],
+  /*
+  ** Router
+  */
+  router: {
+    base: '/paddy/'
+  }
 }
