@@ -65,3 +65,6 @@ typings/
 
 # Nuxt generate
 dist
+
+# Service woker
+sw.*

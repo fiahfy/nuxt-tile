@@ -3,18 +3,9 @@ const Package = require('./package.json')
 module.exports = {
   /*
   ** Headers of the page
+  ** Common headers are already provided by @nuxtjs/pwa preset
   */
-  head: {
-    title: 'Paddy',
-    meta: [
-      { charset: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: Package.description }
-    ],
-    link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
-    ]
-  },
+  head: {},
   /*
   ** Customize the progress bar color
   */
@@ -49,6 +40,12 @@ module.exports = {
   ** Modules
   */
   modules: [
+    ['@nuxtjs/pwa', {
+      manifest: {
+        name: Package.productName,
+        short_name: Package.productName
+      }
+    }],
     '@nuxtjs/vuetify'
   ],
   /*
