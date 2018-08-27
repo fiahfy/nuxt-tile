@@ -35,7 +35,7 @@
     "build": "nuxt build",
     "dev": "nuxt",
     "generate": "nuxt generate && rm -rf docs/* && cp -r dist/ docs/",
-    "lint": "eslint -f codeframe --ext .js,.vue --ignore-path .gitignore .",
+    "lint": "eslint -f friendly --ext .js,.vue --ignore-path .gitignore --ignore-pattern docs .",
     "precommit": "npm run lint",
     "start": "nuxt start"
   }
