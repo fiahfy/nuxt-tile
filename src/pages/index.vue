@@ -46,8 +46,7 @@ export default {
       await this.$nextTick()
     }
     while (true) {
-      const top = window.pageYOffset || document.documentElement.scrollTop
-      if (top > window.innerHeight * this.threshold) {
+      if (window.pageYOffset > window.innerHeight * this.threshold) {
         break
       }
       await this.prepend()
@@ -56,7 +55,7 @@ export default {
   },
   methods: {
     onScroll (e) {
-      const top = window.pageYOffset || document.documentElement.scrollTop
+      const top = window.pageYOffset
       // console.log(top)
       // console.log(window.innerHeight, this.$el.offsetHeight)
       if (this.$el.offsetHeight - top < window.innerHeight * (1 + this.threshold)) {
@@ -103,10 +102,10 @@ export default {
     async prepend () {
       const m = this.months[0]
       this.months = [new Date(m.getFullYear(), m.getMonth() - 1), ...this.months]
-      const top = window.pageYOffset || document.documentElement.scrollTop
+      const top = window.pageYOffset
       const height = this.$el.offsetHeight
       await this.$nextTick()
-      document.documentElement.scrollTop = top + (this.$el.offsetHeight - height)
+      window.scroll(0, top + (this.$el.offsetHeight - height))
     }
   }
 }
