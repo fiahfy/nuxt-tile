@@ -1,33 +1,41 @@
 {
-  "name": "nuxt-tile",
-  "description": "Nuxt.js project",
-  "version": "1.0.0",
+  "name": "paddy",
+  "description": "When did you do that?",
+  "version": "0.0.1",
   "author": {
     "name": "fiahfy",
     "email": "d.fiahfy@gmail.com",
     "url": "http://fiahfy.blogspot.com/"
   },
   "dependencies": {
+    "@nuxtjs/pwa": "^2.3.2",
     "@nuxtjs/vuetify": "^0.4.2",
-    "nuxt": "^1.0.0"
+    "nuxt": "^1.0.0",
+    "vuex-persistedstate": "^2.5.4"
   },
   "devDependencies": {
     "babel-eslint": "^8.2.1",
     "eslint": "^4.15.0",
-    "eslint-friendly-formatter": "^3.0.0",
-    "eslint-loader": "^1.7.1",
+    "eslint-config-standard": "^11.0.0",
+    "eslint-formatter-friendly": "^6.0.0",
+    "eslint-loader": "^2.1.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-node": "^7.0.1",
+    "eslint-plugin-promise": "^4.0.0",
+    "eslint-plugin-standard": "^3.1.0",
     "eslint-plugin-vue": "^4.0.0"
   },
   "private": true,
+  "productName": "Paddy",
   "repository": {
     "type": "git",
-    "url": "https://github.com/fiahfy/nuxt-tile"
+    "url": "https://github.com/fiahfy/paddy"
   },
   "scripts": {
     "build": "nuxt build",
     "dev": "nuxt",
-    "generate": "nuxt generate",
-    "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
+    "generate": "nuxt generate && rm -rf docs/* && cp -r dist/ docs/",
+    "lint": "eslint -f friendly --ext .js,.vue --ignore-path .gitignore --ignore-pattern docs .",
     "precommit": "npm run lint",
     "start": "nuxt start"
   }
