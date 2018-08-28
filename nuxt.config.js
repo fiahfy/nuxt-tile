@@ -2,6 +2,12 @@ const Package = require('./package.json')
 
 module.exports = {
   /*
+  ** Global CSS
+  */
+  css: [
+    'swiper/dist/css/swiper.css'
+  ],
+  /*
   ** Headers of the page
   ** Common headers are already provided by @nuxtjs/pwa preset
   */
@@ -52,6 +58,7 @@ module.exports = {
   ** Plugins
   */
   plugins: [
+    { src: '~/plugins/vue-awesome-swiper' },
     { src: '~/plugins/vuex-persistedstate' }
   ],
   /*
