@@ -2,24 +2,24 @@ importScripts('/paddy/_nuxt/workbox.42554690.js')
 
 workbox.precaching.precacheAndRoute([
   {
-    "url": "/paddy/_nuxt/app.96222084a69dbea0a739.js",
-    "revision": "801d29a475bd52efbc6e43b7296412d6"
+    "url": "/paddy/_nuxt/app.db26b0468bdf6b259f4c.js",
+    "revision": "379abbdc299ab0106ac4311627f05c3b"
   },
   {
-    "url": "/paddy/_nuxt/layouts/default.c8eb7bade69068cd39f6.js",
-    "revision": "9030ddafac935a7acae4e25ad6aa9ab8"
+    "url": "/paddy/_nuxt/layouts/default.29938c2e37f01627f174.js",
+    "revision": "26106f589dab16e15d7e1529b49beab2"
   },
   {
-    "url": "/paddy/_nuxt/manifest.1871cc21b0c44ff21300.js",
-    "revision": "74cbba889fffb093f4a03318caa7ffea"
+    "url": "/paddy/_nuxt/manifest.9831afbcf4626e1f8bf8.js",
+    "revision": "2730612dff889041adf2534698dce194"
   },
   {
-    "url": "/paddy/_nuxt/pages/index.d6e60fdb996141841419.js",
-    "revision": "a58af0c9ac7c83349ab23f4192bf5c8a"
+    "url": "/paddy/_nuxt/pages/index.55157e3f095a5ec27e8e.js",
+    "revision": "e48f70772a5c18fff7398cf00d7db7a8"
   },
   {
-    "url": "/paddy/_nuxt/vendor.5b7692fda854139761e0.js",
-    "revision": "515d4905c0d62933fc1a52de8e5d742f"
+    "url": "/paddy/_nuxt/vendor.18bd60f526087518c094.js",
+    "revision": "465686305345e9e700bd8010af4105a9"
   }
 ], {
   "cacheId": "paddy",
