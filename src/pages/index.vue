@@ -48,7 +48,8 @@ export default {
       },
       swiperOption: {
         direction: 'vertical',
-        height: 382,
+        slidesPerView: 3,
+        height: 382 * 3,
         initialSlide,
         virtual: {
           slides,
