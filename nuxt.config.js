@@ -2,10 +2,20 @@ const Package = require('./package.json')
 
 module.exports = {
   /*
+  ** Global CSS
+  */
+  css: [
+    'swiper/dist/css/swiper.css'
+  ],
+  /*
   ** Headers of the page
   ** Common headers are already provided by @nuxtjs/pwa preset
   */
-  head: {},
+  head: {
+    link: [
+      { rel: 'apple-touch-icon', href: 'apple-touch-icon.png', sizes: '512x512' }
+    ]
+  },
   /*
   ** Customize the progress bar color
   */
@@ -44,6 +54,9 @@ module.exports = {
       manifest: {
         name: Package.productName,
         short_name: Package.productName
+      },
+      meta: {
+        mobileAppIOS: true
       }
     }],
     '@nuxtjs/vuetify'
@@ -52,6 +65,7 @@ module.exports = {
   ** Plugins
   */
   plugins: [
+    { src: '~/plugins/vue-awesome-swiper' },
     { src: '~/plugins/vuex-persistedstate' }
   ],
   /*

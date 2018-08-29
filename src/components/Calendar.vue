@@ -1,34 +1,38 @@
 <template>
-  <v-layout
-    class="calendar"
-    row
-    wrap
+  <v-container
+    class="calendar pa-1"
+    fluid
+    grid-list-xs
+    text-xs-center
+    style="box-sizing: border-box;"
   >
-    <v-flex xs12>
-      <h2 class="subheading mt-3 mb-1">{{ headline }}</h2>
-    </v-flex>
-    <v-flex
-      v-for="i in offsetBegin"
-      :key="`b${i}`"
-      class="day"
-    />
-    <v-flex
-      v-for="day in days"
-      :key="day"
-      class="day"
+    <v-layout
+      row
+      wrap
     >
-      <calendar-item
-        :year="year"
-        :month="month"
-        :day="day"
+      <v-flex xs12>
+        <h2 class="subheading mt-3 mb-1">{{ headline }}</h2>
+      </v-flex>
+      <v-flex
+        v-for="i in offsetBegin"
+        :key="`b${i}`"
       />
-    </v-flex>
-    <v-flex
-      v-for="i in offsetEnd"
-      :key="`e${i}`"
-      class="day"
-    />
-  </v-layout>
+      <v-flex
+        v-for="day in days"
+        :key="day"
+      >
+        <calendar-item
+          :year="year"
+          :month="month"
+          :day="day"
+        />
+      </v-flex>
+      <v-flex
+        v-for="i in offsetEnd"
+        :key="`e${i}`"
+      />
+    </v-layout>
+  </v-container>
 </template>
 
 <script>
@@ -68,11 +72,8 @@ export default {
 </script>
 
 <style scoped>
-.flex.day {
+.flex:not(.xs12) {
   flex-basis: calc(100% / 7);
   max-width: calc(100% / 7);
-}
-.v-card {
-  /* opacity: 0.1; */
 }
 </style>
