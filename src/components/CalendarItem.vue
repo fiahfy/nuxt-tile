@@ -1,5 +1,6 @@
 <template>
   <v-card
+    v-ripple
     :class="classes"
     flat
     tile

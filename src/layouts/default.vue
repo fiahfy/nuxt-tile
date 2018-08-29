@@ -25,11 +25,20 @@ export default {
 }
 </script>
 
+<style>
+html, body, #__nuxt, #__layout, #app, main, .v-content__wrap>div, .swiper-container {
+  height: 100%;
+}
+</style>
+
 <style scoped>
 img {
   height: 25px;
 }
 .headline {
   font-family: 'Trebuchet MS', 'Roboto', sans-serif !important;
+}
+.application >>> .application--wrap {
+  min-height: unset;
 }
 </style>
