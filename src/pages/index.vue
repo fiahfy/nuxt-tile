@@ -12,19 +12,11 @@
         :key="index"
         :style="{top: `${virtualData.offset}px`}"
       >
-        <v-container
-          class="pa-1"
-          fluid
-          grid-list-xs
-          text-xs-center
-          style="box-sizing: border-box;"
-        >
-          <calendar
-            ref="calendar"
-            :year="m.getFullYear()"
-            :month="m.getMonth() + 1"
-          />
-        </v-container>
+        <calendar
+          ref="calendar"
+          :year="m.getFullYear()"
+          :month="m.getMonth() + 1"
+        />
       </swiper-slide>
     </swiper>
   </v-container>
@@ -56,7 +48,7 @@ export default {
       },
       swiperOption: {
         direction: 'vertical',
-        height: 384,
+        height: 382,
         initialSlide,
         virtual: {
           slides,
@@ -66,42 +58,6 @@ export default {
         }
       }
     }
-  },
-  methods: {
-    getClass (month) {
-      return {
-        current: this.month.getFullYear() === month.getFullYear() && this.month.getMonth() === month.getMonth()
-      }
-    },
-    color (d) {
-      return [
-        'white',
-        'grey lighten-5',
-        'grey lighten-4',
-        'grey lighten-3',
-        'grey lighten-2',
-        'grey lighten-1',
-        'grey',
-        'grey darken-1',
-        'grey darken-2',
-        'grey darken-3',
-        'grey darken-4',
-        'black'
-      ][d.getMonth()]
-    }
   }
 }
 </script>
-
-<style scoped>
-.container.grid-list-xs .layout:only-child,
-.container.grid-list-xs .layout:not(:only-child) {
-  margin: 0 -1px;
-}
-.calendar {
-  opacity: 1;
-}
-.calendar.current {
-  opacity: 1;
-}
-</style>
