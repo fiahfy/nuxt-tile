@@ -56,6 +56,7 @@ module.exports = {
         short_name: Package.productName
       },
       meta: {
+        nativeUI: true,
         mobileAppIOS: true
       }
     }],
