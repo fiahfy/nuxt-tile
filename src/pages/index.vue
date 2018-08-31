@@ -1,7 +1,6 @@
 <template>
   <v-container
     class="pa-0"
-    fluid
   >
     <swiper
       ref="swiper"
@@ -19,6 +18,17 @@
         />
       </swiper-slide>
     </swiper>
+    <v-btn
+      class="caption"
+      fab
+      fixed
+      bottom
+      right
+      @click="onClick"
+    >
+      {{ today.getDate() }}
+      <v-icon medium>calendar_today</v-icon>
+    </v-btn>
   </v-container>
 </template>
 
@@ -43,12 +53,14 @@ export default {
     })()
     const initialSlide = slides.indexOf(m)
     return {
+      today: m,
       virtualData: {
         slides: []
       },
       swiperOption: {
         direction: 'vertical',
-        height: 382,
+        slidesPerView: 3,
+        height: 382 * 3,
         initialSlide,
         virtual: {
           slides,
@@ -58,6 +70,23 @@ export default {
         }
       }
     }
+  },
+  methods: {
+    onClick () {
+      this.$refs.swiper.swiper.slideTo(this.swiperOption.initialSlide)
+    }
   }
 }
 </script>
+
+<style scoped>
+.v-btn >>> .v-btn__content {
+  margin-top: 3px;
+}
+.v-icon {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -3px;
+}
+</style>
