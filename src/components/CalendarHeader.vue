@@ -20,13 +20,14 @@
 
 <script>
 export default {
-  computed: {
-    weekdays () {
-      return (new Array(7)).fill(1).map((value, index) => {
-        const d = new Date()
-        d.setDate(d.getDate() + index - d.getDay())
-        return d.toLocaleString('en-US', { weekday: 'narrow' })
-      })
+  data () {
+    const weekdays = (new Array(7)).fill(1).map((value, index) => {
+      const d = new Date()
+      d.setDate(d.getDate() + index - d.getDay())
+      return d.toLocaleString('en-US', { weekday: 'narrow' })
+    })
+    return {
+      weekdays
     }
   }
 }
