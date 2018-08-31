@@ -1,7 +1,6 @@
 <template>
   <v-container
     class="pa-0"
-    fluid
   >
     <swiper
       ref="swiper"
