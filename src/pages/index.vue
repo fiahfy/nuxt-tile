@@ -53,7 +53,7 @@ export default {
     })()
     const initialSlide = slides.indexOf(m)
     return {
-      today: m,
+      today: d,
       virtualData: {
         slides: []
       },
