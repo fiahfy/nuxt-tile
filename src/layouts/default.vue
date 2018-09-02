@@ -29,6 +29,10 @@ export default {
 </script>
 
 <style>
+html {
+  position: fixed;
+  width: 100%;
+}
 html, body, #__nuxt, #__layout, #app, main, .v-content__wrap>div, .swiper-container {
   height: 100%;
 }
