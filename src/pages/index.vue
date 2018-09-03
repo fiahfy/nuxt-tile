@@ -7,14 +7,13 @@
       :options="swiperOption"
     >
       <swiper-slide
-        v-for="(m, index) in virtualData.slides"
-        :key="index"
-        :style="{top: `${virtualData.offset}px`}"
+        v-for="(category, index) in virtualData.slides"
+        :key="category"
+        :style="{ left: `${virtualData.offset}px` }"
       >
         <calendar
-          ref="calendar"
-          :year="m.getFullYear()"
-          :month="m.getMonth() + 1"
+          :ref="`calendar-${index}`"
+          :category="category"
         />
       </swiper-slide>
     </swiper>
@@ -26,7 +25,7 @@
       right
       @click="onClick"
     >
-      {{ today.getDate() }}
+      {{ today }}
       <v-icon medium>calendar_today</v-icon>
     </v-btn>
   </v-container>
@@ -40,28 +39,19 @@ export default {
     Calendar
   },
   data () {
+    const today = (new Date()).getDate()
+    const slides = this.$store.state.categories
+    const category = slides[0]
     const d = new Date()
-    const m = new Date(d.getFullYear(), d.getMonth())
-    const slides = (() => {
-      let slides = [m]
-      for (let i = 1; i < 12 * 10; i++) { // 10 years
-        const previous = new Date(m.getFullYear(), m.getMonth() - i)
-        const next = new Date(m.getFullYear(), m.getMonth() + i)
-        slides = [previous, ...slides, next]
-      }
-      return slides
-    })()
-    const initialSlide = slides.indexOf(m)
+    const month = (new Date(d.getFullYear(), d.getMonth())).getTime()
     return {
-      today: d,
+      today,
+      category,
+      month,
       virtualData: {
         slides: []
       },
       swiperOption: {
-        direction: 'vertical',
-        slidesPerView: 3,
-        height: 382 * 3,
-        initialSlide,
         virtual: {
           slides,
           renderExternal: (data) => {
@@ -73,7 +63,9 @@ export default {
   },
   methods: {
     onClick () {
-      this.$refs.swiper.swiper.slideTo(this.swiperOption.initialSlide)
+      const ref = 'calendar-' + this.$refs.swiper.swiper.activeIndex
+      const calendar = this.$refs[ref][0]
+      calendar.moveToday()
     }
   }
 }

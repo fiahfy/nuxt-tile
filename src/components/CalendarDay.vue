@@ -1,15 +1,12 @@
 <template>
-  <v-card
+  <div
     v-ripple
     :class="classes"
-    flat
-    tile
-    @click.native="onClick"
+    class="calendar-day py-3"
+    @click="onClick"
   >
-    <v-card-text
-      class="px-0"
-    >{{ day }}</v-card-text>
-  </v-card>
+    {{ day }}
+  </div>
 </template>
 
 <script>
@@ -17,6 +14,10 @@ import { mapActions, mapGetters } from 'vuex'
 
 export default {
   props: {
+    category: {
+      type: Number,
+      required: true
+    },
     year: {
       type: Number,
       required: true
@@ -39,7 +40,7 @@ export default {
       return this.year === now.getFullYear() && this.month - 1 === now.getMonth() && this.day === now.getDate()
     },
     checked () {
-      return this.isChecked({ date: this.date })
+      return this.isChecked({ category: this.category, date: this.date })
     },
     classes () {
       if (this.current) {
@@ -53,7 +54,7 @@ export default {
   },
   methods: {
     onClick () {
-      this.toggleChecked({ date: this.date })
+      this.toggleChecked({ category: this.category, date: this.date })
     },
     ...mapActions([
       'toggleChecked'

@@ -1,35 +1,60 @@
+
+const d = new Date()
+const month = (new Date(d.getFullYear(), d.getMonth())).getTime()
+
 export const state = () => ({
-  dates: {}
+  version: 1,
+  categories: [0, 1, 2, 3],
+  dates: [],
+  category: 0,
+  month
 })
 
 export const getters = {
   isChecked (state) {
-    return ({ date }) => !!state.dates[date.getTime()]
+    return ({ category, date }) => {
+      const dates = state.dates[category] || {}
+      return !!dates[date.getTime()]
+    }
+  },
+  isCurrentCategory (state) {
+    return ({ category }) => state.category === category
   }
 }
 
 export const actions = {
-  toggleChecked ({ commit, state }, { date }) {
+  toggleChecked ({ dispatch, state }, { category, date }) {
+    const dates = state.dates[category] || {}
     const timestamp = String(date.getTime())
-    if (state.dates[timestamp]) {
-      const dates = Object.keys(state.dates)
+    if (dates[timestamp]) {
+      const newDates = Object.keys(dates)
         .filter((key) => key !== timestamp)
         .reduce((carry, key) => {
-          carry[key] = state.dates[key]
+          carry[key] = dates[key]
           return carry
         }, {})
-      commit('setDates', { dates })
+      dispatch('setDates', { category, dates: newDates })
       return
     }
-    const dates = {
-      ...state.dates,
+    const newDates = {
+      ...dates,
       [timestamp]: 1
     }
-    commit('setDates', { dates })
+    dispatch('setDates', { category, dates: newDates })
+  },
+  setDates ({ commit, state }, { category, dates }) {
+    const newDates = {
+      ...state.dates,
+      [category]: dates
+    }
+    commit('setDates', { dates: newDates })
   }
 }
 
 export const mutations = {
+  setMonth (state, { month }) {
+    state.month = month
+  },
   setDates (state, { dates }) {
     state.dates = dates
   }
