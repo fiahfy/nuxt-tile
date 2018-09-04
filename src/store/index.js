@@ -1,61 +1,66 @@
 
-const d = new Date()
-const month = (new Date(d.getFullYear(), d.getMonth())).getTime()
-
 export const state = () => ({
   version: 1,
-  categories: [0, 1, 2, 3],
-  dates: [],
-  category: 0,
-  month
+  categories: [1, 2, 3, 4],
+  actives: [],
+  category: 2,
+  date: Date.now()
 })
 
 export const getters = {
-  isChecked (state) {
+  isActive (state) {
     return ({ category, date }) => {
-      const dates = state.dates[category] || {}
-      return !!dates[date.getTime()]
+      const actives = state.actives[category] || {}
+      return !!actives[date.getTime()]
     }
   },
   isCurrentCategory (state) {
     return ({ category }) => state.category === category
+  },
+  month (state) {
+    const d = new Date(state.date)
+    const m = new Date(d.getFullYear(), d.getMonth())
+    return m.getTime()
   }
 }
 
 export const actions = {
-  toggleChecked ({ dispatch, state }, { category, date }) {
-    const dates = state.dates[category] || {}
+  toggleActive ({ dispatch, state }, { category, date }) {
+    const actives = state.actives[category] || {}
     const timestamp = String(date.getTime())
-    if (dates[timestamp]) {
-      const newDates = Object.keys(dates)
+    if (actives[timestamp]) {
+      const newActives = Object.keys(actives)
         .filter((key) => key !== timestamp)
         .reduce((carry, key) => {
-          carry[key] = dates[key]
+          carry[key] = actives[key]
           return carry
         }, {})
-      dispatch('setDates', { category, dates: newDates })
+      dispatch('setActives', { category, actives: newActives })
       return
     }
-    const newDates = {
-      ...dates,
+    const newActives = {
+      ...actives,
       [timestamp]: 1
     }
-    dispatch('setDates', { category, dates: newDates })
+    dispatch('setActives', { category, actives: newActives })
   },
-  setDates ({ commit, state }, { category, dates }) {
-    const newDates = {
-      ...state.dates,
-      [category]: dates
+  setActives ({ commit, state }, { category, actives }) {
+    const newActives = {
+      ...state.actives,
+      [category]: actives
     }
-    commit('setDates', { dates: newDates })
+    commit('setActives', { actives: newActives })
   }
 }
 
 export const mutations = {
-  setMonth (state, { month }) {
-    state.month = month
+  setActives (state, { actives }) {
+    state.actives = actives
   },
-  setDates (state, { dates }) {
-    state.dates = dates
+  setCategory (state, { category }) {
+    state.category = category
+  },
+  setDate (state, { date }) {
+    state.date = date
   }
 }

@@ -5,12 +5,17 @@
     class="calendar-day py-3"
     @click="onClick"
   >
+    <span
+      v-if="current"
+      class="d-inline-block red"
+    />
     {{ day }}
   </div>
 </template>
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
+import * as Theme from '~/utils/Theme'
 
 export default {
   props: {
@@ -39,26 +44,41 @@ export default {
       const now = new Date()
       return this.year === now.getFullYear() && this.month - 1 === now.getMonth() && this.day === now.getDate()
     },
-    checked () {
-      return this.isChecked({ category: this.category, date: this.date })
+    active () {
+      return this.isActive({ category: this.category, date: this.date })
     },
     classes () {
+      let classes = [this.active ? Theme.getActiveDayColor(this.category) : Theme.getHeaderColor(this.category) + ' grey lighten-4']
       if (this.current) {
-        return this.checked ? 'green lighten-2 white--text' : 'green lighten-3'
+        classes = [...classes, 'current']
       }
-      return this.checked ? 'light-green lighten-1 white--text' : 'light-green lighten-4'
+      return classes
     },
     ...mapGetters([
-      'isChecked'
+      'isActive'
     ])
   },
   methods: {
     onClick () {
-      this.toggleChecked({ category: this.category, date: this.date })
+      this.toggleActive({ category: this.category, date: this.date })
     },
     ...mapActions([
-      'toggleChecked'
+      'toggleActive'
     ])
   }
 }
 </script>
+
+<style scoped>
+.calendar-day {
+  cursor: pointer;
+  position: relative;
+}
+span {
+  border-radius: 50%;
+  height: 8px;
+  position: absolute;
+  bottom: 8px;
+  width: 8px;
+}
+</style>

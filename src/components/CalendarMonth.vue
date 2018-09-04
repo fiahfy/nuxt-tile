@@ -11,7 +11,10 @@
       wrap
     >
       <v-flex xs12>
-        <h2 class="subheading mt-3 mb-1">{{ headline }}</h2>
+        <h2
+          :class="classes"
+          class="caption font-weight-black mt-3 mb-1"
+        >{{ caption }}</h2>
       </v-flex>
       <v-flex
         v-for="i in offsetBegin"
@@ -38,6 +41,7 @@
 
 <script>
 import CalendarDay from '~/components/CalendarDay'
+import * as Theme from '~/utils/Theme'
 
 export default {
   components: {
@@ -58,9 +62,12 @@ export default {
     }
   },
   computed: {
-    headline () {
+    caption () {
       const date = new Date(this.year, this.month - 1)
       return date.toLocaleString('en-US', { month: 'long', year: 'numeric' })
+    },
+    classes () {
+      return Theme.getHeaderColor(this.category)
     },
     days () {
       const days = (new Date(this.year, this.month, 0)).getDate()

@@ -4,7 +4,7 @@
   >
     <swiper
       ref="swiper"
-      :options="swiperOption"
+      :options="swiperOptions"
     >
       <swiper-slide
         v-for="(category, index) in virtualData.slides"
@@ -18,7 +18,9 @@
       </swiper-slide>
     </swiper>
     <v-btn
+      :color="buttonColor"
       class="caption"
+      dark
       fab
       fixed
       bottom
@@ -32,7 +34,9 @@
 </template>
 
 <script>
+import { mapMutations, mapState } from 'vuex'
 import Calendar from '~/components/Calendar'
+import * as Theme from '~/utils/Theme'
 
 export default {
   components: {
@@ -41,32 +45,51 @@ export default {
   data () {
     const today = (new Date()).getDate()
     const slides = this.$store.state.categories
-    const category = slides[0]
-    const d = new Date()
-    const month = (new Date(d.getFullYear(), d.getMonth())).getTime()
+    const initialSlide = slides.indexOf(this.$store.state.category)
     return {
       today,
-      category,
-      month,
+      slides,
       virtualData: {
         slides: []
       },
-      swiperOption: {
+      swiperOptions: {
+        initialSlide,
         virtual: {
           slides,
           renderExternal: (data) => {
             this.virtualData = data
           }
+        },
+        on: {
+          slideChange: () => {
+            if (!this.$refs.swiper.swiper) {
+              return
+            }
+            const category = this.slides[this.$refs.swiper.swiper.activeIndex]
+            this.setCategory({ category })
+          }
         }
       }
     }
   },
+  computed: {
+    buttonColor () {
+      return Theme.getButtonColor(this.category)
+    },
+    ...mapState([
+      'category'
+    ])
+  },
   methods: {
     onClick () {
-      const ref = 'calendar-' + this.$refs.swiper.swiper.activeIndex
+      const index = this.$refs.swiper.swiper.activeIndex ? 1 : 0
+      const ref = 'calendar-' + index
       const calendar = this.$refs[ref][0]
       calendar.moveToday()
-    }
+    },
+    ...mapMutations([
+      'setCategory'
+    ])
   }
 }
 </script>

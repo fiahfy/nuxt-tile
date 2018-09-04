@@ -1,7 +1,7 @@
 <template>
   <swiper
     ref="swiper"
-    :options="swiperOption"
+    :options="swiperOptions"
     class="calendar"
   >
     <swiper-slide
@@ -45,12 +45,13 @@ export default {
       }
       return slides
     })()
-    const initialSlide = slides.indexOf(this.$store.state.month)
+    const initialSlide = slides.indexOf(this.$store.getters.month)
     return {
+      slides,
       virtualData: {
         slides: []
       },
-      swiperOption: {
+      swiperOptions: {
         direction: 'vertical',
         slidesPerView: 3,
         height: 382 * 3,
@@ -66,8 +67,8 @@ export default {
             if (!this.$refs.swiper.swiper) {
               return
             }
-            const month = this.swiperOption.virtual.slides[this.$refs.swiper.swiper.activeIndex]
-            this.setMonth({ month })
+            const date = this.slides[this.$refs.swiper.swiper.activeIndex]
+            this.setDate({ date })
           }
         }
       }
@@ -75,10 +76,11 @@ export default {
   },
   computed: {
     ...mapState([
-      'month'
+      'date'
     ]),
     ...mapGetters([
-      'isCurrentCategory'
+      'isCurrentCategory',
+      'month'
     ])
   },
   watch: {
@@ -86,16 +88,19 @@ export default {
       if (this.isCurrentCategory({ category: this.category })) {
         return
       }
-      const index = this.swiperOption.virtual.slides.indexOf(value)
+      const index = this.slides.indexOf(value)
       this.$refs.swiper.swiper.slideTo(index)
     }
   },
   methods: {
     moveToday () {
-      this.$refs.swiper.swiper.slideTo(this.swiperOption.initialSlide)
+      const d = new Date()
+      const m = new Date(d.getFullYear(), d.getMonth())
+      const index = this.slides.indexOf(m.getTime())
+      this.$refs.swiper.swiper.slideTo(index)
     },
     ...mapMutations([
-      'setMonth'
+      'setDate'
     ])
   }
 }

@@ -6,7 +6,10 @@
     >
       <v-spacer />
       <v-toolbar-title class="ml-0">
-        <img src="~/assets/icon.svg">
+        <app-icon
+          :color="color"
+          size="20"
+        />
         <span>addy</span>
       </v-toolbar-title>
       <v-spacer />
@@ -19,11 +22,23 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+import AppIcon from '~/components/AppIcon'
 import CalendarHeader from '~/components/CalendarHeader'
+import * as Theme from '~/utils/Theme'
 
 export default {
   components: {
+    AppIcon,
     CalendarHeader
+  },
+  computed: {
+    color () {
+      return Theme.getIconColor(this.category)
+    },
+    ...mapState([
+      'category'
+    ])
   }
 }
 </script>

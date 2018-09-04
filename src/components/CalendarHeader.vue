@@ -12,6 +12,7 @@
       <v-flex
         v-for="(weekday, index) in weekdays"
         :key="index"
+        :class="classes"
         class="caption"
       >{{ weekday }}</v-flex>
     </v-layout>
@@ -19,6 +20,9 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+import * as Theme from '~/utils/Theme'
+
 export default {
   data () {
     const weekdays = (new Array(7)).fill(1).map((value, index) => {
@@ -29,6 +33,14 @@ export default {
     return {
       weekdays
     }
+  },
+  computed: {
+    classes () {
+      return Theme.getHeaderColor(this.category)
+    },
+    ...mapState([
+      'category'
+    ])
   }
 }
 </script>
