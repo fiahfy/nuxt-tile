@@ -3,7 +3,6 @@
     class="calendar-header px-1 py-0"
     grid-list-xs
     text-xs-center
-    style="box-sizing: border-box;"
   >
     <v-layout
       row
@@ -46,6 +45,9 @@ export default {
 </script>
 
 <style scoped>
+.calendar-header {
+  box-sizing: border-box;
+}
 .flex {
   flex-basis: calc(100% / 7);
   max-width: calc(100% / 7);

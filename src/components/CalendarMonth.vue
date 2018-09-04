@@ -4,7 +4,6 @@
     fluid
     grid-list-xs
     text-xs-center
-    style="box-sizing: border-box;"
   >
     <v-layout
       row
@@ -84,6 +83,9 @@ export default {
 </script>
 
 <style scoped>
+.calendar-month {
+  box-sizing: border-box;
+}
 .flex:not(.xs12) {
   flex-basis: calc(100% / 7);
   max-width: calc(100% / 7);

@@ -1,10 +1,12 @@
 <template>
   <v-container
     class="pa-0"
+    fill-height
   >
     <swiper
       ref="swiper"
       :options="swiperOptions"
+      class="fill-height"
     >
       <swiper-slide
         v-for="(category, index) in virtualData.slides"

@@ -15,7 +15,7 @@
       <v-spacer />
       <calendar-header slot="extension" />
     </v-toolbar>
-    <v-content>
+    <v-content class="fill-height">
       <nuxt/>
     </v-content>
   </v-app>
@@ -48,7 +48,7 @@ html {
   position: fixed;
   width: 100%;
 }
-html, body, #__nuxt, #__layout, #app, main, .v-content__wrap>div, .swiper-container {
+html, body, #__nuxt, #__layout, #app {
   height: 100%;
 }
 </style>

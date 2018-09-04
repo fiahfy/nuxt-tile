@@ -12,11 +12,11 @@ export const getHeaderColor = (category) => {
 export const getButtonColor = (category) => {
   switch (category) {
     case 1:
-      return 'green darken-2'
+      return 'green darken-1'
     case 2:
-      return 'light-green darken-2'
+      return 'light-green darken-1'
     default:
-      return 'orange darken-2'
+      return 'orange darken-1'
   }
 }
 
@@ -34,10 +34,10 @@ export const getActiveDayColor = (category) => {
 export const getIconColor = (category) => {
   switch (category) {
     case 1:
-      return '#4CAF50'
+      return '#4caf50'
     case 2:
-      return '#8BC34A'
+      return '#8bc34a'
     default:
-      return '#FF9800'
+      return '#ff9800'
   }
 }
