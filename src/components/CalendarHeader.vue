@@ -3,7 +3,6 @@
     class="calendar-header px-1 py-0"
     grid-list-xs
     text-xs-center
-    style="box-sizing: border-box;"
   >
     <v-layout
       row
@@ -12,6 +11,7 @@
       <v-flex
         v-for="(weekday, index) in weekdays"
         :key="index"
+        :class="classes"
         class="caption"
       >{{ weekday }}</v-flex>
     </v-layout>
@@ -19,6 +19,9 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+import * as Category from '~/utils/category'
+
 export default {
   data () {
     const weekdays = (new Array(7)).fill(1).map((value, index) => {
@@ -29,11 +32,23 @@ export default {
     return {
       weekdays
     }
+  },
+  computed: {
+    classes () {
+      const color = Category.getColor(this.category)
+      return `${color}--text text--darken-4`
+    },
+    ...mapState([
+      'category'
+    ])
   }
 }
 </script>
 
 <style scoped>
+.calendar-header {
+  box-sizing: border-box;
+}
 .flex {
   flex-basis: calc(100% / 7);
   max-width: calc(100% / 7);

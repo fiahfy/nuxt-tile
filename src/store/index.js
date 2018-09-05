@@ -1,36 +1,34 @@
+import * as Category from '~/utils/category'
+
 export const state = () => ({
-  dates: {}
+  version: 1,
+  categories: Category.Defaults,
+  category: 1,
+  date: Date.now()
 })
 
 export const getters = {
-  isChecked (state) {
-    return ({ date }) => !!state.dates[date.getTime()]
+  isCurrentCategory (state) {
+    return ({ category }) => state.category === category
+  },
+  month (state) {
+    const d = new Date(state.date)
+    const m = new Date(d.getFullYear(), d.getMonth())
+    return m.getTime()
   }
 }
 
 export const actions = {
-  toggleChecked ({ commit, state }, { date }) {
-    const timestamp = String(date.getTime())
-    if (state.dates[timestamp]) {
-      const dates = Object.keys(state.dates)
-        .filter((key) => key !== timestamp)
-        .reduce((carry, key) => {
-          carry[key] = state.dates[key]
-          return carry
-        }, {})
-      commit('setDates', { dates })
-      return
-    }
-    const dates = {
-      ...state.dates,
-      [timestamp]: 1
-    }
-    commit('setDates', { dates })
-  }
 }
 
 export const mutations = {
-  setDates (state, { dates }) {
-    state.dates = dates
+  setVersion (state, { version }) {
+    state.version = version
+  },
+  setCategory (state, { category }) {
+    state.category = category
+  },
+  setDate (state, { date }) {
+    state.date = date
   }
 }
