@@ -19,7 +19,7 @@ module.exports = {
   /*
   ** Customize the progress bar color
   */
-  loading: { color: '#3B8070' },
+  loading: { color: '#8BC34A' },
   /*
   ** Build configuration
   */
@@ -57,7 +57,8 @@ module.exports = {
       },
       meta: {
         nativeUI: true,
-        mobileAppIOS: true
+        mobileAppIOS: true,
+        ogHost: 'https://fiahfy.github.io/paddy'
       }
     }],
     '@nuxtjs/vuetify'
@@ -75,7 +76,8 @@ module.exports = {
   router: {
     base: '/paddy/',
     middleware: [
-      'migrate'
+      'migrate',
+      'now'
     ]
   }
 }

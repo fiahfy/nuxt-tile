@@ -45,11 +45,9 @@ export default {
     Calendar
   },
   data () {
-    const today = (new Date()).getDate()
     const slides = this.$store.state.categories
     const initialSlide = slides.indexOf(this.$store.state.category)
     return {
-      today,
       slides,
       virtualData: {
         slides: []
@@ -79,8 +77,12 @@ export default {
       const color = Category.getColor(this.category)
       return `${color} darken-1`
     },
+    today () {
+      return (new Date(this.now)).getDate()
+    },
     ...mapState([
-      'category'
+      'category',
+      'now'
     ])
   },
   methods: {

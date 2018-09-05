@@ -76,7 +76,8 @@ export default {
   },
   computed: {
     ...mapState([
-      'date'
+      'date',
+      'now'
     ]),
     ...mapGetters([
       'isCurrentCategory',
@@ -94,7 +95,7 @@ export default {
   },
   methods: {
     moveToday () {
-      const d = new Date()
+      const d = new Date(this.now)
       const m = new Date(d.getFullYear(), d.getMonth())
       const index = this.slides.indexOf(m.getTime())
       this.$refs.swiper.swiper.slideTo(index)

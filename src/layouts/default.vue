@@ -4,6 +4,10 @@
       app
       extension-height="18"
     >
+      <v-btn
+        icon
+        style="visibility: hidden;"
+      />
       <v-spacer />
       <v-toolbar-title class="ml-0">
         <app-icon
@@ -13,6 +17,12 @@
         <span>addy</span>
       </v-toolbar-title>
       <v-spacer />
+      <v-btn
+        icon
+        href="https://github.com/fiahfy/paddy"
+      >
+        <img src="~/assets/github-mark.svg">
+      </v-btn>
       <calendar-header slot="extension" />
     </v-toolbar>
     <v-content class="fill-height">
@@ -61,7 +71,7 @@ html, body, #__nuxt, #__layout, #app {
   font-family: 'Trebuchet MS', 'Roboto', sans-serif !important;
 }
 img {
-  height: 20px;
+  height: 24px;
 }
 .v-toolbar >>> .v-toolbar__extension {
   padding: 0;
