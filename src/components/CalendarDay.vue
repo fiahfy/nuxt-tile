@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex'
+import { mapActions, mapGetters, mapState } from 'vuex'
 import * as Category from '~/utils/category'
 
 export default {
@@ -41,8 +41,8 @@ export default {
       return new Date(this.year, this.month - 1, this.day)
     },
     current () {
-      const now = new Date()
-      return this.year === now.getFullYear() && this.month - 1 === now.getMonth() && this.day === now.getDate()
+      const d = new Date(this.now)
+      return this.year === d.getFullYear() && this.month - 1 === d.getMonth() && this.day === d.getDate()
     },
     active () {
       return this.isActive({ category: this.category, date: this.date })
@@ -55,6 +55,9 @@ export default {
       }
       return classes
     },
+    ...mapState([
+      'now'
+    ]),
     ...mapGetters('active', [
       'isActive'
     ])
@@ -77,9 +80,12 @@ export default {
 }
 span {
   border-radius: 50%;
-  height: 8px;
-  position: absolute;
   bottom: 8px;
+  left: 0;
+  height: 8px;
+  margin: 0 auto;
+  position: absolute;
+  right: 0;
   width: 8px;
 }
 </style>

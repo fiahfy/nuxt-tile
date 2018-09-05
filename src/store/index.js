@@ -4,7 +4,8 @@ export const state = () => ({
   version: 1,
   categories: Category.Defaults,
   category: 1,
-  date: Date.now()
+  date: Date.now(),
+  now: Date.now()
 })
 
 export const getters = {
@@ -30,5 +31,8 @@ export const mutations = {
   },
   setDate (state, { date }) {
     state.date = date
+  },
+  setNow (state, { now }) {
+    state.now = now
   }
 }
