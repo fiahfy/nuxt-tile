@@ -4,6 +4,10 @@
       app
       extension-height="18"
     >
+      <v-btn
+        icon
+        style="visibility: hidden;"
+      />
       <v-spacer />
       <v-toolbar-title class="ml-0">
         <app-icon
