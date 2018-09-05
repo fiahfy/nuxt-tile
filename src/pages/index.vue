@@ -38,7 +38,7 @@
 <script>
 import { mapMutations, mapState } from 'vuex'
 import Calendar from '~/components/Calendar'
-import * as Theme from '~/utils/Theme'
+import * as Category from '~/utils/category'
 
 export default {
   components: {
@@ -76,7 +76,8 @@ export default {
   },
   computed: {
     buttonColor () {
-      return Theme.getButtonColor(this.category)
+      const color = Category.getColor(this.category)
+      return `${color} darken-1`
     },
     ...mapState([
       'category'

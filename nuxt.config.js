@@ -73,6 +73,9 @@ module.exports = {
   ** Router
   */
   router: {
-    base: '/paddy/'
+    base: '/paddy/',
+    middleware: [
+      'migrate'
+    ]
   }
 }

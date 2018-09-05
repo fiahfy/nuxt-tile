@@ -15,7 +15,7 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
-import * as Theme from '~/utils/Theme'
+import * as Category from '~/utils/category'
 
 export default {
   props: {
@@ -48,22 +48,23 @@ export default {
       return this.isActive({ category: this.category, date: this.date })
     },
     classes () {
-      let classes = [this.active ? Theme.getActiveDayColor(this.category) : Theme.getHeaderColor(this.category) + ' grey lighten-4']
+      const color = Category.getColor(this.category)
+      let classes = [this.active ? `${color} lighten-3 ${color}--text text--darken-4` : `grey lighten-4 ${color}--text text--darken-4`]
       if (this.current) {
         classes = [...classes, 'current']
       }
       return classes
     },
-    ...mapGetters([
+    ...mapGetters('active', [
       'isActive'
     ])
   },
   methods: {
     onClick () {
-      this.toggleActive({ category: this.category, date: this.date })
+      this.toggle({ category: this.category, date: this.date })
     },
-    ...mapActions([
-      'toggleActive'
+    ...mapActions('active', [
+      'toggle'
     ])
   }
 }

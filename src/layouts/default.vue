@@ -25,7 +25,7 @@
 import { mapState } from 'vuex'
 import AppIcon from '~/components/AppIcon'
 import CalendarHeader from '~/components/CalendarHeader'
-import * as Theme from '~/utils/Theme'
+import * as Category from '~/utils/category'
 
 export default {
   components: {
@@ -34,7 +34,7 @@ export default {
   },
   computed: {
     color () {
-      return Theme.getIconColor(this.category)
+      return Category.getColor(this.category)
     },
     ...mapState([
       'category'

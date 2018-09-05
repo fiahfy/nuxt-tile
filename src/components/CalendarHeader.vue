@@ -20,7 +20,7 @@
 
 <script>
 import { mapState } from 'vuex'
-import * as Theme from '~/utils/Theme'
+import * as Category from '~/utils/category'
 
 export default {
   data () {
@@ -35,7 +35,8 @@ export default {
   },
   computed: {
     classes () {
-      return Theme.getHeaderColor(this.category)
+      const color = Category.getColor(this.category)
+      return `${color}--text text--darken-4`
     },
     ...mapState([
       'category'

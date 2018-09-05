@@ -1,19 +1,13 @@
+import * as Category from '~/utils/category'
 
 export const state = () => ({
   version: 1,
-  categories: [1, 2, 3, 4],
-  actives: [],
-  category: 2,
+  categories: Category.Defaults,
+  category: 1,
   date: Date.now()
 })
 
 export const getters = {
-  isActive (state) {
-    return ({ category, date }) => {
-      const actives = state.actives[category] || {}
-      return !!actives[date.getTime()]
-    }
-  },
   isCurrentCategory (state) {
     return ({ category }) => state.category === category
   },
@@ -25,37 +19,11 @@ export const getters = {
 }
 
 export const actions = {
-  toggleActive ({ dispatch, state }, { category, date }) {
-    const actives = state.actives[category] || {}
-    const timestamp = String(date.getTime())
-    if (actives[timestamp]) {
-      const newActives = Object.keys(actives)
-        .filter((key) => key !== timestamp)
-        .reduce((carry, key) => {
-          carry[key] = actives[key]
-          return carry
-        }, {})
-      dispatch('setActives', { category, actives: newActives })
-      return
-    }
-    const newActives = {
-      ...actives,
-      [timestamp]: 1
-    }
-    dispatch('setActives', { category, actives: newActives })
-  },
-  setActives ({ commit, state }, { category, actives }) {
-    const newActives = {
-      ...state.actives,
-      [category]: actives
-    }
-    commit('setActives', { actives: newActives })
-  }
 }
 
 export const mutations = {
-  setActives (state, { actives }) {
-    state.actives = actives
+  setVersion (state, { version }) {
+    state.version = version
   },
   setCategory (state, { category }) {
     state.category = category

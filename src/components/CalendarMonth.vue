@@ -40,7 +40,7 @@
 
 <script>
 import CalendarDay from '~/components/CalendarDay'
-import * as Theme from '~/utils/Theme'
+import * as Category from '~/utils/category'
 
 export default {
   components: {
@@ -66,7 +66,8 @@ export default {
       return date.toLocaleString('en-US', { month: 'long', year: 'numeric' })
     },
     classes () {
-      return Theme.getHeaderColor(this.category)
+      const color = Category.getColor(this.category)
+      return `${color}--text text--darken-4`
     },
     days () {
       const days = (new Date(this.year, this.month, 0)).getDate()

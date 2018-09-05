@@ -3,9 +3,10 @@ import createPersistedState from 'vuex-persistedstate'
 export default ({ store }) => {
   createPersistedState({
     paths: [
-      'actives',
+      'version',
       'category',
-      'date'
+      'date',
+      'active'
     ]
   })(store)
 }
