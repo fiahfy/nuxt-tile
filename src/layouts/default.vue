@@ -5,9 +5,9 @@
       extension-height="18"
     >
       <v-btn
-        icon
-        style="visibility: hidden;"
-      />
+        flat
+        @click="dialog = !dialog"
+      >Category</v-btn>
       <v-spacer />
       <v-toolbar-title class="ml-0">
         <app-icon
@@ -28,6 +28,7 @@
     <v-content class="fill-height">
       <nuxt/>
     </v-content>
+    <category-dialog v-model="dialog" />
   </v-app>
 </template>
 
@@ -35,12 +36,19 @@
 import { mapState } from 'vuex'
 import AppIcon from '~/components/AppIcon'
 import CalendarHeader from '~/components/CalendarHeader'
+import CategoryDialog from '~/components/CategoryDialog'
 import * as Category from '~/utils/category'
 
 export default {
   components: {
     AppIcon,
-    CalendarHeader
+    CalendarHeader,
+    CategoryDialog
+  },
+  data () {
+    return {
+      dialog: false
+    }
   },
   computed: {
     color () {
