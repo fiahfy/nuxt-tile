@@ -2,15 +2,15 @@ importScripts('/paddy/_nuxt/workbox.42554690.js')
 
 workbox.precaching.precacheAndRoute([
   {
-    "url": "/paddy/_nuxt/app.6d6e5b299f0b3458282f.js",
-    "revision": "5279d43a2f43cc056a669185b2610822"
+    "url": "/paddy/_nuxt/app.55d53e96e3d45ba4d09f.js",
+    "revision": "dab78b12fe7990ff6614545ed4037b4f"
   },
   {
     "url": "/paddy/_nuxt/layouts/default.6c944e592b493016e215.js",
     "revision": "2c694c9e00f547bc5a0cf01eead9e305"
   },
   {
-    "url": "/paddy/_nuxt/manifest.dae5d83f4beff88fdf15.js",
+    "url": "/paddy/_nuxt/manifest.347ed3492680468f1696.js",
     "revision": "be695c7d16b803045014f7ae34f4b941"
   },
   {

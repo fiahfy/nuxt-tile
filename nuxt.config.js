@@ -12,6 +12,9 @@ module.exports = {
   ** Common headers are already provided by @nuxtjs/pwa preset
   */
   head: {
+    meta: [
+      { hid: 'og:url', name: 'og:url', property: 'og:url', content: 'https://fiahfy.github.io/paddy/' }
+    ],
     link: [
       { rel: 'apple-touch-icon', href: 'apple-touch-icon.png', sizes: '512x512' }
     ]
@@ -58,7 +61,7 @@ module.exports = {
       meta: {
         nativeUI: true,
         mobileAppIOS: true,
-        ogHost: 'https://fiahfy.github.io/paddy'
+        ogHost: 'https://fiahfy.github.io'
       }
     }],
     '@nuxtjs/vuetify'
