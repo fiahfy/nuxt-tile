@@ -15,11 +15,10 @@
 
 <script>
 import { mapActions, mapGetters, mapState } from 'vuex'
-import * as Category from '~/utils/category'
 
 export default {
   props: {
-    category: {
+    categoryId: {
       type: Number,
       required: true
     },
@@ -45,10 +44,10 @@ export default {
       return this.year === d.getFullYear() && this.month - 1 === d.getMonth() && this.day === d.getDate()
     },
     active () {
-      return this.isActive({ category: this.category, date: this.date })
+      return this.isActive({ categoryId: this.categoryId, date: this.date })
     },
     classes () {
-      const color = Category.getColor(this.category)
+      const color = this.getCategory({ id: this.categoryId }).color
       let classes = [this.active ? `${color} lighten-3 ${color}--text text--darken-4` : `grey lighten-4 ${color}--text text--darken-4`]
       if (this.current) {
         classes = [...classes, 'current']
@@ -58,13 +57,16 @@ export default {
     ...mapState([
       'now'
     ]),
+    ...mapGetters([
+      'getCategory'
+    ]),
     ...mapGetters('active', [
       'isActive'
     ])
   },
   methods: {
     onClick () {
-      this.toggle({ category: this.category, date: this.date })
+      this.toggle({ categoryId: this.categoryId, date: this.date })
     },
     ...mapActions('active', [
       'toggle'

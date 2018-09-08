@@ -24,7 +24,7 @@
         :key="day"
       >
         <calendar-day
-          :category="category"
+          :category-id="categoryId"
           :year="year"
           :month="month"
           :day="day"
@@ -39,15 +39,15 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import CalendarDay from '~/components/CalendarDay'
-import * as Category from '~/utils/category'
 
 export default {
   components: {
     CalendarDay
   },
   props: {
-    category: {
+    categoryId: {
       type: Number,
       required: true
     },
@@ -66,7 +66,7 @@ export default {
       return date.toLocaleString('en-US', { month: 'long', year: 'numeric' })
     },
     classes () {
-      const color = Category.getColor(this.category)
+      const color = this.getCategory({ id: this.categoryId }).color
       return `${color}--text text--darken-4`
     },
     days () {
@@ -78,7 +78,10 @@ export default {
     },
     offsetEnd () {
       return 6 - (new Date(this.year, this.month, 0)).getDay()
-    }
+    },
+    ...mapGetters([
+      'getCategory'
+    ])
   }
 }
 </script>

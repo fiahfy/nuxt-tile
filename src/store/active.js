@@ -4,25 +4,25 @@ export const state = () => ({
 
 export const getters = {
   isActive (state) {
-    return ({ category, date }) => {
-      const actives = state.actives[category] || {}
+    return ({ categoryId, date }) => {
+      const actives = state.actives[categoryId] || {}
       return !!actives[date.getTime()]
     }
   }
 }
 
 export const actions = {
-  add ({ dispatch, state }, { category, date }) {
-    const actives = state.actives[category] || {}
+  add ({ dispatch, state }, { categoryId, date }) {
+    const actives = state.actives[categoryId] || {}
     const timestamp = String(date.getTime())
     const newActives = {
       ...actives,
       [timestamp]: 1
     }
-    dispatch('setActives', { category, actives: newActives })
+    dispatch('setActives', { categoryId, actives: newActives })
   },
-  remove ({ dispatch, state }, { category, date }) {
-    const actives = state.actives[category] || {}
+  remove ({ dispatch, state }, { categoryId, date }) {
+    const actives = state.actives[categoryId] || {}
     const timestamp = String(date.getTime())
     const newActives = Object.keys(actives)
       .filter((key) => key !== timestamp)
@@ -30,17 +30,17 @@ export const actions = {
         carry[key] = actives[key]
         return carry
       }, {})
-    dispatch('setActives', { category, actives: newActives })
+    dispatch('setActives', { categoryId, actives: newActives })
   },
-  toggle ({ dispatch, getters, state }, { category, date }) {
-    const active = getters.isActive({ category, date })
+  toggle ({ dispatch, getters, state }, { categoryId, date }) {
+    const active = getters.isActive({ categoryId, date })
     const action = active ? 'remove' : 'add'
-    dispatch(action, { category, date })
+    dispatch(action, { categoryId, date })
   },
-  setActives ({ commit, state }, { category, actives }) {
+  setActives ({ commit, state }, { categoryId, actives }) {
     const newActives = {
       ...state.actives,
-      [category]: actives
+      [categoryId]: actives
     }
     commit('setActives', { actives: newActives })
   }

@@ -9,13 +9,13 @@
       class="fill-height"
     >
       <swiper-slide
-        v-for="(category, index) in virtualData.slides"
-        :key="category"
+        v-for="(categoryId, index) in virtualData.slides"
+        :key="categoryId"
         :style="{ left: `${virtualData.offset}px` }"
       >
         <calendar
           :ref="`calendar-${index}`"
-          :category="category"
+          :category-id="categoryId"
         />
       </swiper-slide>
     </swiper>
@@ -36,17 +36,16 @@
 </template>
 
 <script>
-import { mapMutations, mapState } from 'vuex'
+import { mapGetters, mapMutations, mapState } from 'vuex'
 import Calendar from '~/components/Calendar'
-import * as Category from '~/utils/category'
 
 export default {
   components: {
     Calendar
   },
   data () {
-    const slides = this.$store.state.categories
-    const initialSlide = slides.indexOf(this.$store.state.category)
+    const slides = this.$store.state.categories.map((category) => category.id)
+    const initialSlide = slides.indexOf(this.$store.state.categoryId)
     return {
       slides,
       virtualData: {
@@ -65,8 +64,8 @@ export default {
             if (!this.$refs.swiper.swiper) {
               return
             }
-            const category = this.slides[this.$refs.swiper.swiper.activeIndex]
-            this.setCategory({ category })
+            const categoryId = this.slides[this.$refs.swiper.swiper.activeIndex]
+            this.setCategoryId({ categoryId })
           }
         }
       }
@@ -74,16 +73,25 @@ export default {
   },
   computed: {
     buttonColor () {
-      const color = Category.getColor(this.category)
+      const color = this.category.color
       return `${color} darken-1`
     },
     today () {
       return (new Date(this.now)).getDate()
     },
     ...mapState([
-      'category',
+      'categoryId',
       'now'
+    ]),
+    ...mapGetters([
+      'category'
     ])
+  },
+  watch: {
+    categoryId (value) {
+      const index = this.slides.indexOf(value)
+      this.$refs.swiper.swiper.slideTo(index)
+    }
   },
   methods: {
     onClick () {
@@ -93,7 +101,7 @@ export default {
       calendar.moveToday()
     },
     ...mapMutations([
-      'setCategory'
+      'setCategoryId'
     ])
   }
 }

@@ -11,7 +11,7 @@
     >
       <calendar-month
         ref="calendar"
-        :category="category"
+        :category-id="categoryId"
         :year="(new Date(timestamp)).getFullYear()"
         :month="(new Date(timestamp)).getMonth() + 1"
       />
@@ -28,7 +28,7 @@ export default {
     CalendarMonth
   },
   props: {
-    category: {
+    categoryId: {
       type: Number,
       required: true
     }
@@ -76,19 +76,14 @@ export default {
   },
   computed: {
     ...mapState([
-      'date',
       'now'
     ]),
     ...mapGetters([
-      'isCurrentCategory',
       'month'
     ])
   },
   watch: {
     month (value) {
-      if (this.isCurrentCategory({ category: this.category })) {
-        return
-      }
       const index = this.slides.indexOf(value)
       this.$refs.swiper.swiper.slideTo(index)
     }
