@@ -1,61 +1,103 @@
 <template>
   <v-app>
+    <v-navigation-drawer
+      v-model="drawer"
+      app
+    >
+      <v-list dense>
+        <v-subheader class="grey--text text--darken-1">CATEGORIES</v-subheader>
+        <v-list>
+          <v-list-tile
+            v-for="category in categories"
+            :key="category.id"
+            :class="getClasses(category)"
+            @click="(e) => onClick(e, category)"
+          >
+            <v-list-tile-action>
+              <app-icon
+                :color="category.color"
+                size="20"
+              />
+            </v-list-tile-action>
+            <v-list-tile-content>
+              <v-list-tile-title v-text="category.name" />
+            </v-list-tile-content>
+          </v-list-tile>
+        </v-list>
+        <v-divider />
+        <v-list>
+          <v-list-tile href="https://github.com/fiahfy/paddy">
+            <v-list-tile-action>
+              <img src="~/assets/github-mark.svg">
+            </v-list-tile-action>
+            <v-list-tile-content>
+              <v-list-tile-title>GitHub</v-list-tile-title>
+            </v-list-tile-content>
+          </v-list-tile>
+        </v-list>
+      </v-list>
+    </v-navigation-drawer>
+
     <v-toolbar
       app
       extension-height="18"
     >
-      <v-btn
-        flat
-        @click="dialog = !dialog"
-      >Category</v-btn>
-      <v-spacer />
-      <v-toolbar-title class="ml-0">
+      <v-toolbar-side-icon
+        @click.stop="drawer = !drawer"
+      />
+      <v-toolbar-title>
         <app-icon
           :color="color"
           size="20"
         />
         <span>addy</span>
       </v-toolbar-title>
-      <v-spacer />
-      <v-btn
-        icon
-        href="https://github.com/fiahfy/paddy"
-      >
-        <img src="~/assets/github-mark.svg">
-      </v-btn>
       <calendar-header slot="extension" />
     </v-toolbar>
+
     <v-content class="fill-height">
       <nuxt/>
     </v-content>
-    <category-dialog v-model="dialog" />
   </v-app>
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapGetters, mapMutations, mapState } from 'vuex'
 import AppIcon from '~/components/AppIcon'
 import CalendarHeader from '~/components/CalendarHeader'
-import CategoryDialog from '~/components/CategoryDialog'
-import * as Category from '~/utils/category'
 
 export default {
   components: {
     AppIcon,
-    CalendarHeader,
-    CategoryDialog
+    CalendarHeader
   },
   data () {
     return {
-      dialog: false
+      drawer: false
     }
   },
   computed: {
     color () {
-      return Category.getColor(this.category)
+      return this.category.color
     },
     ...mapState([
+      'categories'
+    ]),
+    ...mapGetters([
       'category'
+    ])
+  },
+  methods: {
+    getClasses (category) {
+      return {
+        'primary--text': category.id === this.category.id
+      }
+    },
+    onClick (e, category) {
+      this.setCategoryId({ categoryId: category.id })
+    },
+    ...mapMutations([
+      'setCategoryId'
     ])
   }
 }

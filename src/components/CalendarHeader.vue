@@ -19,8 +19,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
-import * as Category from '~/utils/category'
+import { mapGetters } from 'vuex'
 
 export default {
   data () {
@@ -35,10 +34,10 @@ export default {
   },
   computed: {
     classes () {
-      const color = Category.getColor(this.category)
+      const color = this.category.color
       return `${color}--text text--darken-4`
     },
-    ...mapState([
+    ...mapGetters([
       'category'
     ])
   }

@@ -4,7 +4,7 @@ export default ({ store }) => {
   createPersistedState({
     paths: [
       'version',
-      'category',
+      'categoryId',
       'date',
       'active'
     ]

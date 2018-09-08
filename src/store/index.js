@@ -1,21 +1,26 @@
-import * as Category from '~/utils/category'
-
 export const state = () => ({
   version: 1,
-  categories: Category.Defaults,
-  category: 1,
+  categories: [
+    { id: 1, name: 'Light Green', color: 'light-green' },
+    { id: 2, name: 'Orange', color: 'orange' },
+    { id: 3, name: 'Red', color: 'red' }
+  ],
+  categoryId: 1,
   date: Date.now(),
   now: Date.now()
 })
 
 export const getters = {
-  isCurrentCategory (state) {
-    return ({ category }) => state.category === category
+  category (state, getters) {
+    return getters.getCategory({ id: state.categoryId })
   },
   month (state) {
     const d = new Date(state.date)
     const m = new Date(d.getFullYear(), d.getMonth())
     return m.getTime()
+  },
+  getCategory (state) {
+    return ({ id }) => state.categories.find((category) => category.id === id)
   }
 }
 
@@ -26,8 +31,8 @@ export const mutations = {
   setVersion (state, { version }) {
     state.version = version
   },
-  setCategory (state, { category }) {
-    state.category = category
+  setCategoryId (state, { categoryId }) {
+    state.categoryId = categoryId
   },
   setDate (state, { date }) {
     state.date = date
