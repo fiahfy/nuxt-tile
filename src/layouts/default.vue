@@ -4,9 +4,22 @@
       v-model="drawer"
       app
     >
+      <v-toolbar
+        color="transparent"
+        flat
+      >
+        <v-toolbar-title>
+          <app-icon
+            color="light-green"
+            size="20"
+          />
+          <span>addy</span>
+        </v-toolbar-title>
+      </v-toolbar>
+      <v-divider />
       <v-list dense>
         <v-subheader class="grey--text text--darken-1">CATEGORIES</v-subheader>
-        <v-list>
+        <v-list dense>
           <v-list-tile
             v-for="category in categories"
             :key="category.id"
@@ -25,7 +38,7 @@
           </v-list-tile>
         </v-list>
         <v-divider />
-        <v-list>
+        <v-list dense>
           <v-list-tile href="https://github.com/fiahfy/paddy">
             <v-list-tile-action>
               <img src="~/assets/github-mark.svg">
@@ -45,13 +58,7 @@
       <v-toolbar-side-icon
         @click.stop="drawer = !drawer"
       />
-      <v-toolbar-title>
-        <app-icon
-          :color="color"
-          size="20"
-        />
-        <span>addy</span>
-      </v-toolbar-title>
+      <v-toolbar-title>{{ title }}</v-toolbar-title>
       <calendar-header slot="extension" />
     </v-toolbar>
 
@@ -77,14 +84,16 @@ export default {
     }
   },
   computed: {
-    color () {
-      return this.category.color
+    title () {
+      const date = new Date(this.month)
+      return date.toLocaleString('en-US', { month: 'long', year: 'numeric' })
     },
     ...mapState([
       'categories'
     ]),
     ...mapGetters([
-      'category'
+      'category',
+      'month'
     ])
   },
   methods: {

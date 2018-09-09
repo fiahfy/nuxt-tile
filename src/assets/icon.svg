@@ -7,14 +7,14 @@
 >
   <polygon
     points="0 0, 235 0, 235 235, 0 235"
-    fill="#9ccc65"
+    fill="#8bc34a"
   />
   <polygon
     points="277 0, 512 0, 512 235, 277 235"
-    fill="#9ccc65"
+    fill="#8bc34a"
   />
   <polygon
     points="0 277, 235 277, 235 512, 0 512"
-    fill="#9ccc65"
+    fill="#8bc34a"
   />
 </svg>

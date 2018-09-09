@@ -1,7 +1,7 @@
 export const state = () => ({
   version: 1,
   categories: [
-    { id: 1, name: 'Light Green', color: 'light-green' },
+    { id: 1, name: 'Default', color: 'light-green' },
     { id: 2, name: 'Orange', color: 'orange' },
     { id: 3, name: 'Red', color: 'red' }
   ],
