@@ -9,12 +9,12 @@
       row
       wrap
     >
-      <!-- <v-flex xs12>
+      <v-flex xs12>
         <h2
           :class="classes"
           class="caption font-weight-black mt-3 mb-1"
         >{{ caption }}</h2>
-      </v-flex> -->
+      </v-flex>
       <v-flex
         v-for="i in offsetBegin"
         :key="`b${i}`"
