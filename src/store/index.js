@@ -19,6 +19,11 @@ export const getters = {
     const m = new Date(d.getFullYear(), d.getMonth())
     return m.getTime()
   },
+  year (state) {
+    const d = new Date(state.date)
+    const y = new Date(d.getFullYear(), 0)
+    return y.getTime()
+  },
   getCategory (state) {
     return ({ id }) => state.categories.find((category) => category.id === id)
   }

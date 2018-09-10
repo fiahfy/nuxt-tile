@@ -13,7 +13,7 @@
         :key="categoryId"
         :style="{ left: `${virtualData.offset}px` }"
       >
-        <calendar
+        <calendar-month-swiper
           :ref="`calendar-${index}`"
           :category-id="categoryId"
         />
@@ -37,11 +37,11 @@
 
 <script>
 import { mapGetters, mapMutations, mapState } from 'vuex'
-import Calendar from '~/components/Calendar'
+import CalendarMonthSwiper from '~/components/CalendarMonthSwiper'
 
 export default {
   components: {
-    Calendar
+    CalendarMonthSwiper
   },
   data () {
     const slides = this.$store.state.categories.map((category) => category.id)
