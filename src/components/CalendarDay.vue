@@ -36,15 +36,15 @@ export default {
     }
   },
   computed: {
-    date () {
-      return new Date(this.year, this.month - 1, this.day)
+    timestamp () {
+      return (new Date(this.year, this.month - 1, this.day)).getTime()
     },
     current () {
       const d = new Date(this.now)
       return this.year === d.getFullYear() && this.month - 1 === d.getMonth() && this.day === d.getDate()
     },
     active () {
-      return this.isActive({ categoryId: this.categoryId, date: this.date })
+      return this.isActive({ categoryId: this.categoryId, timestamp: this.timestamp })
     },
     classes () {
       const color = this.getCategory({ id: this.categoryId }).color
@@ -66,7 +66,7 @@ export default {
   },
   methods: {
     onClick () {
-      this.toggle({ categoryId: this.categoryId, date: this.date })
+      this.toggle({ categoryId: this.categoryId, timestamp: this.timestamp })
     },
     ...mapActions('active', [
       'toggle'

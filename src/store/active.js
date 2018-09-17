@@ -4,26 +4,26 @@ export const state = () => ({
 
 export const getters = {
   isActive (state) {
-    return ({ categoryId, date }) => {
+    return ({ categoryId, timestamp }) => {
       const actives = state.actives[categoryId] || {}
-      return !!actives[date.getTime()]
+      return !!actives[timestamp]
     }
   }
 }
 
 export const actions = {
-  add ({ dispatch, state }, { categoryId, date }) {
+  add ({ dispatch, state }, { categoryId, timestamp }) {
+    timestamp = String(timestamp)
     const actives = state.actives[categoryId] || {}
-    const timestamp = String(date.getTime())
     const newActives = {
       ...actives,
       [timestamp]: 1
     }
     dispatch('setActives', { categoryId, actives: newActives })
   },
-  remove ({ dispatch, state }, { categoryId, date }) {
+  remove ({ dispatch, state }, { categoryId, timestamp }) {
+    timestamp = String(timestamp)
     const actives = state.actives[categoryId] || {}
-    const timestamp = String(date.getTime())
     const newActives = Object.keys(actives)
       .filter((key) => key !== timestamp)
       .reduce((carry, key) => {
@@ -32,10 +32,10 @@ export const actions = {
       }, {})
     dispatch('setActives', { categoryId, actives: newActives })
   },
-  toggle ({ dispatch, getters, state }, { categoryId, date }) {
-    const active = getters.isActive({ categoryId, date })
+  toggle ({ dispatch, getters }, { categoryId, timestamp }) {
+    const active = getters.isActive({ categoryId, timestamp })
     const action = active ? 'remove' : 'add'
-    dispatch(action, { categoryId, date })
+    dispatch(action, { categoryId, timestamp })
   },
   setActives ({ commit, state }, { categoryId, actives }) {
     const newActives = {

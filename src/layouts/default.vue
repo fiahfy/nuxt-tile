@@ -4,14 +4,27 @@
       v-model="drawer"
       app
     >
+      <v-toolbar
+        color="transparent"
+        flat
+      >
+        <v-toolbar-title>
+          <app-icon
+            color="light-green"
+            size="20"
+          />
+          <span>addy</span>
+        </v-toolbar-title>
+      </v-toolbar>
+      <v-divider />
       <v-list dense>
         <v-subheader class="grey--text text--darken-1">CATEGORIES</v-subheader>
-        <v-list>
+        <v-list dense>
           <v-list-tile
             v-for="category in categories"
             :key="category.id"
             :class="getClasses(category)"
-            @click="(e) => onClick(e, category)"
+            @click="(e) => onListTileClick(e, category)"
           >
             <v-list-tile-action>
               <app-icon
@@ -25,10 +38,14 @@
           </v-list-tile>
         </v-list>
         <v-divider />
-        <v-list>
+        <v-list dense>
           <v-list-tile href="https://github.com/fiahfy/paddy">
             <v-list-tile-action>
-              <img src="~/assets/github-mark.svg">
+              <img
+                src="~/assets/github-mark.svg"
+                height="24"
+                width="24"
+              >
             </v-list-tile-action>
             <v-list-tile-content>
               <v-list-tile-title>GitHub</v-list-tile-title>
@@ -45,18 +62,21 @@
       <v-toolbar-side-icon
         @click.stop="drawer = !drawer"
       />
-      <v-toolbar-title>
-        <app-icon
-          :color="color"
-          size="20"
-        />
-        <span>addy</span>
-      </v-toolbar-title>
+      <v-toolbar-title>{{ title }}</v-toolbar-title>
+      <v-spacer />
+      <v-btn
+        class="today"
+        icon
+        @click="onIconClick"
+      >
+        {{ today }}
+        <v-icon>calendar_today</v-icon>
+      </v-btn>
       <calendar-header slot="extension" />
     </v-toolbar>
 
     <v-content class="fill-height">
-      <nuxt/>
+      <nuxt />
     </v-content>
   </v-app>
 </template>
@@ -77,14 +97,20 @@ export default {
     }
   },
   computed: {
-    color () {
-      return this.category.color
+    title () {
+      const date = new Date(this.month)
+      return date.toLocaleString('en-US', { month: 'long', year: 'numeric' })
+    },
+    today () {
+      return (new Date(this.now)).getDate()
     },
     ...mapState([
-      'categories'
+      'categories',
+      'now'
     ]),
     ...mapGetters([
-      'category'
+      'category',
+      'month'
     ])
   },
   methods: {
@@ -93,11 +119,16 @@ export default {
         'primary--text': category.id === this.category.id
       }
     },
-    onClick (e, category) {
+    onListTileClick (e, category) {
       this.setCategoryId({ categoryId: category.id })
     },
+    onIconClick () {
+      const timestamp = this.now
+      this.setTimestamp({ timestamp })
+    },
     ...mapMutations([
-      'setCategoryId'
+      'setCategoryId',
+      'setTimestamp'
     ])
   }
 }
@@ -117,11 +148,18 @@ html, body, #__nuxt, #__layout, #app {
 .application >>> .application--wrap {
   min-height: unset;
 }
-.v-toolbar__title {
+.v-navigation-drawer .v-toolbar__title {
   font-family: 'Trebuchet MS', 'Roboto', sans-serif !important;
 }
-img {
-  height: 24px;
+.today.v-btn >>> .v-btn__content {
+  font-size: 10px;
+  margin-top: 4px;
+}
+.today .v-icon {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -7px;
 }
 .v-toolbar >>> .v-toolbar__extension {
   padding: 0;
