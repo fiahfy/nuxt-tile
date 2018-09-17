@@ -10,7 +10,6 @@
       :style="{ top: `${virtualData.offset}px` }"
     >
       <calendar-month
-        ref="calendar"
         :category-id="categoryId"
         :year="(new Date(timestamp)).getFullYear()"
         :month="(new Date(timestamp)).getMonth() + 1"
@@ -67,8 +66,8 @@ export default {
             if (!this.$refs.swiper.swiper) {
               return
             }
-            const date = this.slides[this.$refs.swiper.swiper.activeIndex]
-            this.setDate({ date })
+            const timestamp = this.slides[this.$refs.swiper.swiper.activeIndex]
+            this.setTimestamp({ timestamp })
           }
         }
       }
@@ -89,14 +88,8 @@ export default {
     }
   },
   methods: {
-    moveToday () {
-      const d = new Date(this.now)
-      const m = new Date(d.getFullYear(), d.getMonth())
-      const index = this.slides.indexOf(m.getTime())
-      this.$refs.swiper.swiper.slideTo(index)
-    },
     ...mapMutations([
-      'setDate'
+      'setTimestamp'
     ])
   }
 }

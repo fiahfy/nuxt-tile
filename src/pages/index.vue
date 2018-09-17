@@ -9,34 +9,29 @@
       class="fill-height"
     >
       <swiper-slide
-        v-for="(categoryId, index) in virtualData.slides"
+        v-for="(categoryId) in virtualData.slides"
         :key="categoryId"
         :style="{ left: `${virtualData.offset}px` }"
       >
-        <calendar-month-swiper
-          :ref="`calendar-${index}`"
-          :category-id="categoryId"
-        />
+        <calendar-month-swiper :category-id="categoryId" />
       </swiper-slide>
     </swiper>
     <v-btn
-      :color="buttonColor"
-      class="caption"
-      dark
+      :color="color"
+      :dark="active"
       fab
       fixed
       bottom
       right
       @click="onClick"
     >
-      {{ today }}
-      <v-icon medium>calendar_today</v-icon>
+      <v-icon medium>done</v-icon>
     </v-btn>
   </v-container>
 </template>
 
 <script>
-import { mapGetters, mapMutations, mapState } from 'vuex'
+import { mapActions, mapGetters, mapMutations, mapState } from 'vuex'
 import CalendarMonthSwiper from '~/components/CalendarMonthSwiper'
 
 export default {
@@ -72,19 +67,26 @@ export default {
     }
   },
   computed: {
-    buttonColor () {
-      const color = this.category.color
-      return `${color} darken-1`
-    },
     today () {
       return (new Date(this.now)).getDate()
+    },
+    active () {
+      return this.isActive({ categoryId: this.categoryId, timestamp: this.nowDay })
+    },
+    color () {
+      const color = this.category.color
+      return this.active ? `${color} darken-1` : `${color}--text text--darken-1`
     },
     ...mapState([
       'categoryId',
       'now'
     ]),
     ...mapGetters([
-      'category'
+      'category',
+      'nowDay'
+    ]),
+    ...mapGetters('active', [
+      'isActive'
     ])
   },
   watch: {
@@ -95,13 +97,16 @@ export default {
   },
   methods: {
     onClick () {
-      const index = this.$refs.swiper.swiper.activeIndex ? 1 : 0
-      const ref = 'calendar-' + index
-      const calendar = this.$refs[ref][0]
-      calendar.moveToday()
+      const timestamp = this.now
+      this.setTimestamp({ timestamp })
+      this.toggle({ categoryId: this.categoryId, timestamp: this.nowDay })
     },
     ...mapMutations([
-      'setCategoryId'
+      'setCategoryId',
+      'setTimestamp'
+    ]),
+    ...mapActions('active', [
+      'toggle'
     ])
   }
 }

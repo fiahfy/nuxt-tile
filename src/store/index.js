@@ -6,7 +6,7 @@ export const state = () => ({
     { id: 3, name: 'Red', color: 'red' }
   ],
   categoryId: 1,
-  date: Date.now(),
+  timestamp: Date.now(),
   now: Date.now()
 })
 
@@ -15,14 +15,19 @@ export const getters = {
     return getters.getCategory({ id: state.categoryId })
   },
   month (state) {
-    const d = new Date(state.date)
+    const d = new Date(state.timestamp)
     const m = new Date(d.getFullYear(), d.getMonth())
     return m.getTime()
   },
   year (state) {
-    const d = new Date(state.date)
+    const d = new Date(state.timestamp)
     const y = new Date(d.getFullYear(), 0)
     return y.getTime()
+  },
+  nowDay (state) {
+    const n = new Date(state.now)
+    const d = new Date(n.getFullYear(), n.getMonth(), n.getDate())
+    return d.getTime()
   },
   getCategory (state) {
     return ({ id }) => state.categories.find((category) => category.id === id)
@@ -39,8 +44,8 @@ export const mutations = {
   setCategoryId (state, { categoryId }) {
     state.categoryId = categoryId
   },
-  setDate (state, { date }) {
-    state.date = date
+  setTimestamp (state, { timestamp }) {
+    state.timestamp = timestamp
   },
   setNow (state, { now }) {
     state.now = now

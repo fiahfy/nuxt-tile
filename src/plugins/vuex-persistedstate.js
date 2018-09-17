@@ -5,7 +5,7 @@ export default ({ store }) => {
     paths: [
       'version',
       'categoryId',
-      'date',
+      'timestamp',
       'active'
     ]
   })(store)
