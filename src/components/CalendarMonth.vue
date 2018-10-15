@@ -61,27 +61,25 @@ export default {
     }
   },
   computed: {
-    caption () {
+    caption() {
       const date = new Date(this.year, this.month - 1)
       return date.toLocaleString('en-US', { month: 'long', year: 'numeric' })
     },
-    classes () {
+    classes() {
       const color = this.getCategory({ id: this.categoryId }).color
       return `${color}--text text--darken-4`
     },
-    days () {
-      const days = (new Date(this.year, this.month, 0)).getDate()
+    days() {
+      const days = new Date(this.year, this.month, 0).getDate()
       return [...Array(days).keys()].map((i) => i + 1)
     },
-    offsetBegin () {
-      return (new Date(this.year, this.month - 1, 1)).getDay()
+    offsetBegin() {
+      return new Date(this.year, this.month - 1, 1).getDay()
     },
-    offsetEnd () {
-      return 6 - (new Date(this.year, this.month, 0)).getDay()
+    offsetEnd() {
+      return 6 - new Date(this.year, this.month, 0).getDay()
     },
-    ...mapGetters([
-      'getCategory'
-    ])
+    ...mapGetters(['getCategory'])
   }
 }
 </script>

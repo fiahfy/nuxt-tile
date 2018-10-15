@@ -31,14 +31,15 @@ export default {
       required: true
     }
   },
-  data () {
+  data() {
     const slides = (() => {
       const d = new Date()
       const y = new Date(d.getFullYear(), 0)
       let slides = [y.getTime()]
-      for (let i = 1; i < 10; i++) { // 10 years
-        const previous = (new Date(y.getFullYear() - i, 0)).getTime()
-        const next = (new Date(y.getFullYear() + i, 0)).getTime()
+      for (let i = 1; i < 10; i++) {
+        // 10 years
+        const previous = new Date(y.getFullYear() - i, 0).getTime()
+        const next = new Date(y.getFullYear() + i, 0).getTime()
         slides = [previous, ...slides, next]
       }
       return slides
@@ -73,23 +74,17 @@ export default {
     }
   },
   computed: {
-    ...mapState([
-      'now'
-    ]),
-    ...mapGetters([
-      'year'
-    ])
+    ...mapState(['now']),
+    ...mapGetters(['year'])
   },
   watch: {
-    year (value) {
+    year(value) {
       const index = this.slides.indexOf(value)
       this.$refs.swiper.swiper.slideTo(index)
     }
   },
   methods: {
-    ...mapMutations([
-      'setTimestamp'
-    ])
+    ...mapMutations(['setTimestamp'])
   }
 }
 </script>

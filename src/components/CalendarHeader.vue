@@ -22,8 +22,8 @@
 import { mapGetters } from 'vuex'
 
 export default {
-  data () {
-    const weekdays = (new Array(7)).fill(1).map((value, index) => {
+  data() {
+    const weekdays = new Array(7).fill(1).map((value, index) => {
       const d = new Date()
       d.setDate(d.getDate() + index - d.getDay())
       return d.toLocaleString('en-US', { weekday: 'narrow' })
@@ -33,13 +33,11 @@ export default {
     }
   },
   computed: {
-    classes () {
+    classes() {
       const color = this.category.color
       return `${color}--text text--darken-4`
     },
-    ...mapGetters([
-      'category'
-    ])
+    ...mapGetters(['category'])
   }
 }
 </script>

@@ -32,14 +32,15 @@ export default {
       required: true
     }
   },
-  data () {
+  data() {
     const slides = (() => {
       const d = new Date()
       const m = new Date(d.getFullYear(), d.getMonth())
       let slides = [m.getTime()]
-      for (let i = 1; i < 12 * 10; i++) { // 10 years
-        const previous = (new Date(m.getFullYear(), m.getMonth() - i)).getTime()
-        const next = (new Date(m.getFullYear(), m.getMonth() + i)).getTime()
+      for (let i = 1; i < 12 * 10; i++) {
+        // 10 years
+        const previous = new Date(m.getFullYear(), m.getMonth() - i).getTime()
+        const next = new Date(m.getFullYear(), m.getMonth() + i).getTime()
         slides = [previous, ...slides, next]
       }
       return slides
@@ -74,23 +75,17 @@ export default {
     }
   },
   computed: {
-    ...mapState([
-      'now'
-    ]),
-    ...mapGetters([
-      'month'
-    ])
+    ...mapState(['now']),
+    ...mapGetters(['month'])
   },
   watch: {
-    month (value) {
+    month(value) {
       const index = this.slides.indexOf(value)
       this.$refs.swiper.swiper.slideTo(index)
     }
   },
   methods: {
-    ...mapMutations([
-      'setTimestamp'
-    ])
+    ...mapMutations(['setTimestamp'])
   }
 }
 </script>

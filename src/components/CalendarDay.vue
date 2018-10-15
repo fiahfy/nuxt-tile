@@ -36,41 +36,44 @@ export default {
     }
   },
   computed: {
-    timestamp () {
-      return (new Date(this.year, this.month - 1, this.day)).getTime()
+    timestamp() {
+      return new Date(this.year, this.month - 1, this.day).getTime()
     },
-    current () {
+    current() {
       const d = new Date(this.now)
-      return this.year === d.getFullYear() && this.month - 1 === d.getMonth() && this.day === d.getDate()
+      return (
+        this.year === d.getFullYear() &&
+        this.month - 1 === d.getMonth() &&
+        this.day === d.getDate()
+      )
     },
-    active () {
-      return this.isActive({ categoryId: this.categoryId, timestamp: this.timestamp })
+    active() {
+      return this.isActive({
+        categoryId: this.categoryId,
+        timestamp: this.timestamp
+      })
     },
-    classes () {
+    classes() {
       const color = this.getCategory({ id: this.categoryId }).color
-      let classes = [this.active ? `${color} lighten-3 ${color}--text text--darken-4` : `grey lighten-4 ${color}--text text--darken-4`]
+      let classes = [
+        this.active
+          ? `${color} lighten-3 ${color}--text text--darken-4`
+          : `grey lighten-4 ${color}--text text--darken-4`
+      ]
       if (this.current) {
         classes = [...classes, 'current']
       }
       return classes
     },
-    ...mapState([
-      'now'
-    ]),
-    ...mapGetters([
-      'getCategory'
-    ]),
-    ...mapGetters('active', [
-      'isActive'
-    ])
+    ...mapState(['now']),
+    ...mapGetters(['getCategory']),
+    ...mapGetters('active', ['isActive'])
   },
   methods: {
-    onClick () {
+    onClick() {
       this.toggle({ categoryId: this.categoryId, timestamp: this.timestamp })
     },
-    ...mapActions('active', [
-      'toggle'
-    ])
+    ...mapActions('active', ['toggle'])
   }
 }
 </script>

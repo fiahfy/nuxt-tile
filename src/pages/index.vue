@@ -38,7 +38,7 @@ export default {
   components: {
     CalendarMonthSwiper
   },
-  data () {
+  data() {
     const slides = this.$store.state.categories.map((category) => category.id)
     const initialSlide = slides.indexOf(this.$store.state.categoryId)
     return {
@@ -67,47 +67,37 @@ export default {
     }
   },
   computed: {
-    today () {
-      return (new Date(this.now)).getDate()
+    today() {
+      return new Date(this.now).getDate()
     },
-    active () {
-      return this.isActive({ categoryId: this.categoryId, timestamp: this.nowDay })
+    active() {
+      return this.isActive({
+        categoryId: this.categoryId,
+        timestamp: this.nowDay
+      })
     },
-    color () {
+    color() {
       const color = this.category.color
       return this.active ? `${color} darken-1` : `${color}--text text--darken-1`
     },
-    ...mapState([
-      'categoryId',
-      'now'
-    ]),
-    ...mapGetters([
-      'category',
-      'nowDay'
-    ]),
-    ...mapGetters('active', [
-      'isActive'
-    ])
+    ...mapState(['categoryId', 'now']),
+    ...mapGetters(['category', 'nowDay']),
+    ...mapGetters('active', ['isActive'])
   },
   watch: {
-    categoryId (value) {
+    categoryId(value) {
       const index = this.slides.indexOf(value)
       this.$refs.swiper.swiper.slideTo(index)
     }
   },
   methods: {
-    onClick () {
+    onClick() {
       const timestamp = this.now
       this.setTimestamp({ timestamp })
       this.toggle({ categoryId: this.categoryId, timestamp: this.nowDay })
     },
-    ...mapMutations([
-      'setCategoryId',
-      'setTimestamp'
-    ]),
-    ...mapActions('active', [
-      'toggle'
-    ])
+    ...mapMutations(['setCategoryId', 'setTimestamp']),
+    ...mapActions('active', ['toggle'])
   }
 }
 </script>

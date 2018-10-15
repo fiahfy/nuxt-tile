@@ -12,8 +12,8 @@
           <app-icon
             color="light-green"
             size="20"
-          />
-          <span>addy</span>
+          /><!--
+          --><span>addy</span>
         </v-toolbar-title>
       </v-toolbar>
       <v-divider />
@@ -91,45 +91,36 @@ export default {
     AppIcon,
     CalendarHeader
   },
-  data () {
+  data() {
     return {
       drawer: false
     }
   },
   computed: {
-    title () {
+    title() {
       const date = new Date(this.month)
       return date.toLocaleString('en-US', { month: 'long', year: 'numeric' })
     },
-    today () {
-      return (new Date(this.now)).getDate()
+    today() {
+      return new Date(this.now).getDate()
     },
-    ...mapState([
-      'categories',
-      'now'
-    ]),
-    ...mapGetters([
-      'category',
-      'month'
-    ])
+    ...mapState(['categories', 'now']),
+    ...mapGetters(['category', 'month'])
   },
   methods: {
-    getClasses (category) {
+    getClasses(category) {
       return {
         'primary--text': category.id === this.category.id
       }
     },
-    onListTileClick (e, category) {
+    onListTileClick(e, category) {
       this.setCategoryId({ categoryId: category.id })
     },
-    onIconClick () {
+    onIconClick() {
       const timestamp = this.now
       this.setTimestamp({ timestamp })
     },
-    ...mapMutations([
-      'setCategoryId',
-      'setTimestamp'
-    ])
+    ...mapMutations(['setCategoryId', 'setTimestamp'])
   }
 }
 </script>
@@ -139,7 +130,11 @@ html {
   position: fixed;
   width: 100%;
 }
-html, body, #__nuxt, #__layout, #app {
+html,
+body,
+#__nuxt,
+#__layout,
+#app {
   height: 100%;
 }
 </style>

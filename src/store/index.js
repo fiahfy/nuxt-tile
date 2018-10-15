@@ -11,43 +11,42 @@ export const state = () => ({
 })
 
 export const getters = {
-  category (state, getters) {
+  category(state, getters) {
     return getters.getCategory({ id: state.categoryId })
   },
-  month (state) {
+  month(state) {
     const d = new Date(state.timestamp)
     const m = new Date(d.getFullYear(), d.getMonth())
     return m.getTime()
   },
-  year (state) {
+  year(state) {
     const d = new Date(state.timestamp)
     const y = new Date(d.getFullYear(), 0)
     return y.getTime()
   },
-  nowDay (state) {
+  nowDay(state) {
     const n = new Date(state.now)
     const d = new Date(n.getFullYear(), n.getMonth(), n.getDate())
     return d.getTime()
   },
-  getCategory (state) {
+  getCategory(state) {
     return ({ id }) => state.categories.find((category) => category.id === id)
   }
 }
 
-export const actions = {
-}
+export const actions = {}
 
 export const mutations = {
-  setVersion (state, { version }) {
+  setVersion(state, { version }) {
     state.version = version
   },
-  setCategoryId (state, { categoryId }) {
+  setCategoryId(state, { categoryId }) {
     state.categoryId = categoryId
   },
-  setTimestamp (state, { timestamp }) {
+  setTimestamp(state, { timestamp }) {
     state.timestamp = timestamp
   },
-  setNow (state, { now }) {
+  setNow(state, { now }) {
     state.now = now
   }
 }

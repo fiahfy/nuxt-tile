@@ -34,7 +34,7 @@ export default {
     }
   },
   computed: {
-    classes () {
+    classes() {
       return this.color
     }
   }

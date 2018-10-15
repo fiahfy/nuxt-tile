@@ -49,20 +49,18 @@ export default {
     }
   },
   computed: {
-    caption () {
+    caption() {
       const date = new Date(this.year, 0)
       return date.toLocaleString('en-US', { year: 'numeric' })
     },
-    classes () {
+    classes() {
       const color = this.getCategory({ id: this.categoryId }).color
       return `${color}--text text--darken-4`
     },
-    months () {
+    months() {
       return [...Array(12).keys()].map((i) => i + 1)
     },
-    ...mapGetters([
-      'getCategory'
-    ])
+    ...mapGetters(['getCategory'])
   }
 }
 </script>
@@ -72,6 +70,6 @@ export default {
   box-sizing: border-box;
 }
 .calendar >>> .calendar-day {
-  padding: 0!important;
+  padding: 0 !important;
 }
 </style>

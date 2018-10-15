@@ -3,7 +3,7 @@ export const state = () => ({
 })
 
 export const getters = {
-  isActive (state) {
+  isActive(state) {
     return ({ categoryId, timestamp }) => {
       const actives = state.actives[categoryId] || {}
       return !!actives[timestamp]
@@ -12,7 +12,7 @@ export const getters = {
 }
 
 export const actions = {
-  add ({ dispatch, state }, { categoryId, timestamp }) {
+  add({ dispatch, state }, { categoryId, timestamp }) {
     timestamp = String(timestamp)
     const actives = state.actives[categoryId] || {}
     const newActives = {
@@ -21,7 +21,7 @@ export const actions = {
     }
     dispatch('setActives', { categoryId, actives: newActives })
   },
-  remove ({ dispatch, state }, { categoryId, timestamp }) {
+  remove({ dispatch, state }, { categoryId, timestamp }) {
     timestamp = String(timestamp)
     const actives = state.actives[categoryId] || {}
     const newActives = Object.keys(actives)
@@ -32,12 +32,12 @@ export const actions = {
       }, {})
     dispatch('setActives', { categoryId, actives: newActives })
   },
-  toggle ({ dispatch, getters }, { categoryId, timestamp }) {
+  toggle({ dispatch, getters }, { categoryId, timestamp }) {
     const active = getters.isActive({ categoryId, timestamp })
     const action = active ? 'remove' : 'add'
     dispatch(action, { categoryId, timestamp })
   },
-  setActives ({ commit, state }, { categoryId, actives }) {
+  setActives({ commit, state }, { categoryId, actives }) {
     const newActives = {
       ...state.actives,
       [categoryId]: actives
@@ -47,7 +47,7 @@ export const actions = {
 }
 
 export const mutations = {
-  setActives (state, { actives }) {
+  setActives(state, { actives }) {
     state.actives = actives
   }
 }

@@ -4,19 +4,26 @@ module.exports = {
   /*
   ** Global CSS
   */
-  css: [
-    'swiper/dist/css/swiper.css'
-  ],
+  css: ['swiper/dist/css/swiper.css'],
   /*
   ** Headers of the page
   ** Common headers are already provided by @nuxtjs/pwa preset
   */
   head: {
     meta: [
-      { hid: 'og:url', name: 'og:url', property: 'og:url', content: 'https://fiahfy.github.io/paddy/' }
+      {
+        hid: 'og:url',
+        name: 'og:url',
+        property: 'og:url',
+        content: 'https://fiahfy.github.io/paddy/'
+      }
     ],
     link: [
-      { rel: 'apple-touch-icon', href: 'apple-touch-icon.png', sizes: '512x512' }
+      {
+        rel: 'apple-touch-icon',
+        href: 'apple-touch-icon.png',
+        sizes: '512x512'
+      }
     ]
   },
   /*
@@ -30,7 +37,7 @@ module.exports = {
     /*
     ** Run ESLint on save
     */
-    extend (config, { isDev, isClient }) {
+    extend(config, { isDev, isClient }) {
       if (isDev && isClient) {
         config.module.rules.push({
           enforce: 'pre',
@@ -53,17 +60,20 @@ module.exports = {
   ** Modules
   */
   modules: [
-    ['@nuxtjs/pwa', {
-      manifest: {
-        name: Package.productName,
-        short_name: Package.productName
-      },
-      meta: {
-        nativeUI: true,
-        mobileAppIOS: true,
-        ogHost: 'https://fiahfy.github.io'
+    [
+      '@nuxtjs/pwa',
+      {
+        manifest: {
+          name: Package.productName,
+          short_name: Package.productName
+        },
+        meta: {
+          nativeUI: true,
+          mobileAppIOS: true,
+          ogHost: 'https://fiahfy.github.io'
+        }
       }
-    }],
+    ],
     '@nuxtjs/vuetify'
   ],
   /*
@@ -78,9 +88,6 @@ module.exports = {
   */
   router: {
     base: '/paddy/',
-    middleware: [
-      'migrate',
-      'now'
-    ]
+    middleware: ['migrate', 'now']
   }
 }
