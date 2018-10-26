@@ -1,6 +1,7 @@
 <template>
   <v-container
     class="pa-0"
+    fluid
     fill-height
   >
     <swiper
@@ -13,7 +14,8 @@
         :key="categoryId"
         :style="{ left: `${virtualData.offset}px` }"
       >
-        <calendar-month-swiper :category-id="categoryId" />
+        <calendar-month-swiper  :category-id="categoryId" />
+        <!-- <calendar-month-list class="fill-height" :category-id="categoryId" /> -->
       </swiper-slide>
     </swiper>
     <v-btn
@@ -33,10 +35,12 @@
 <script>
 import { mapActions, mapGetters, mapMutations, mapState } from 'vuex'
 import CalendarMonthSwiper from '~/components/CalendarMonthSwiper'
+import CalendarMonthList from '~/components/CalendarMonthList'
 
 export default {
   components: {
-    CalendarMonthSwiper
+    CalendarMonthSwiper,
+    CalendarMonthList
   },
   data() {
     const slides = this.$store.state.categories.map((category) => category.id)

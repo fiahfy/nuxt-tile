@@ -9,18 +9,20 @@
       :key="timestamp"
       :style="{ top: `${virtualData.offset}px` }"
     >
-      <calendar-month
-        :category-id="categoryId"
-        :year="(new Date(timestamp)).getFullYear()"
-        :month="(new Date(timestamp)).getMonth() + 1"
-      />
+      <v-container class="pa-0">
+        <calendar-month
+          :category-id="categoryId"
+          :year="(new Date(timestamp)).getFullYear()"
+          :month="(new Date(timestamp)).getMonth() + 1"
+        />
+      </v-container>
     </swiper-slide>
   </swiper>
 </template>
 
 <script>
-import CalendarMonth from '~/components/CalendarMonth'
 import { mapGetters, mapMutations, mapState } from 'vuex'
+import CalendarMonth from '~/components/CalendarMonth'
 
 export default {
   components: {
@@ -52,9 +54,11 @@ export default {
         slides: []
       },
       swiperOptions: {
+        // freeMode: true,
+        mousewheel: true,
         direction: 'vertical',
-        slidesPerView: 3,
-        height: 376 * 3,
+        slidesPerView: 5,
+        height: 376 * 5,
         initialSlide,
         virtual: {
           slides,
@@ -81,7 +85,7 @@ export default {
   watch: {
     month(value) {
       const index = this.slides.indexOf(value)
-      this.$refs.swiper.swiper.slideTo(index)
+      // this.$refs.swiper.swiper.slideTo(index)
     }
   },
   methods: {

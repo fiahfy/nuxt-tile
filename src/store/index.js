@@ -7,7 +7,8 @@ export const state = () => ({
   ],
   categoryId: 1,
   timestamp: Date.now(),
-  now: Date.now()
+  now: Date.now(),
+  scrollTop: 0
 })
 
 export const getters = {
@@ -48,5 +49,8 @@ export const mutations = {
   },
   setNow(state, { now }) {
     state.now = now
+  },
+  setScrollTop(state, { scrollTop }) {
+    state.scrollTop = scrollTop
   }
 }
