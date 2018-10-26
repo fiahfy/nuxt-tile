@@ -2,6 +2,7 @@
   <v-container
     class="pa-0"
     fill-height
+    fluid
   >
     <swiper
       ref="swiper"
@@ -13,7 +14,9 @@
         :key="categoryId"
         :style="{ left: `${virtualData.offset}px` }"
       >
-        <calendar-month-swiper :category-id="categoryId" />
+        <v-container class="pa-0">
+          <calendar-month-swiper :category-id="categoryId" />
+        </v-container>
       </swiper-slide>
     </swiper>
     <v-btn
